@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SnowTricks - APi{% endblock %}
-
 {% block body %}
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="{{ path('index') }}">SnowTricks</a>
+        <a class="navbar-brand" href="{{ path('index') }}">
+            <img src="{{ asset('img/logo.png') }}" alt="SnowTricks logo">
+        </a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
@@ -17,17 +17,20 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ajouter un Trick</a>
+                    <a class="nav-link" href="#">Tricks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inscription</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Se Connecter</button>
-            </form>
         </div>
     </nav>
 </header>
