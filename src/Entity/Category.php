@@ -36,7 +36,7 @@ class Category
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="categoryId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="category")
      */
     private $figures;
 
@@ -93,7 +93,7 @@ class Category
     {
         if (!$this->figures->contains($figure)) {
             $this->figures[] = $figure;
-            $figure->setCategoryId($this);
+            $figure->setCategory($this);
         }
 
         return $this;
@@ -109,8 +109,8 @@ class Category
         if ($this->figures->contains($figure)) {
             $this->figures->removeElement($figure);
             // set the owning side to null (unless already changed)
-            if ($figure->getCategoryId() === $this) {
-                $figure->setCategoryId(null);
+            if ($figure->getCategory() === $this) {
+                $figure->setCategory(null);
             }
         }
 

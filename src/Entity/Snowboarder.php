@@ -90,14 +90,14 @@ class Snowboarder
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="userId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="snowboarder")
      */
     private $figures;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="snowboarderId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="snowboarder")
      */
     private $comments;
 
@@ -295,7 +295,7 @@ class Snowboarder
     {
         if (!$this->figures->contains($figure)) {
             $this->figures[] = $figure;
-            $figure->setSnowboarderId($this);
+            $figure->setSnowboarder($this);
         }
 
         return $this;
@@ -311,8 +311,8 @@ class Snowboarder
         if ($this->figures->contains($figure)) {
             $this->figures->removeElement($figure);
             // set the owning side to null (unless already changed)
-            if ($figure->getSnowboarderId() === $this) {
-                $figure->setSnowboarderId(null);
+            if ($figure->getSnowboarder() === $this) {
+                $figure->setSnowboarder(null);
             }
         }
 
@@ -336,7 +336,7 @@ class Snowboarder
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setSnowboarderId($this);
+            $comment->setSnowboarder($this);
         }
 
         return $this;
@@ -352,8 +352,8 @@ class Snowboarder
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getSnowboarderId() === $this) {
-                $comment->setSnowboarderId(null);
+            if ($comment->getSnowboarder() === $this) {
+                $comment->setSnowboarder(null);
             }
         }
 

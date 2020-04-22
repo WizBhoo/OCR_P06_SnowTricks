@@ -30,7 +30,7 @@ class Image
      * @ORM\ManyToOne(targetEntity="App\Entity\Figure", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $figureId;
+    private $figure;
 
     /**
      * @var bool
@@ -57,19 +57,19 @@ class Image
     /**
      * @return Figure|null
      */
-    public function getFigureId(): ?Figure
+    public function getFigure(): ?Figure
     {
-        return $this->figureId;
+        return $this->figure;
     }
 
     /**
-     * @param Figure|null $figureId
+     * @param Figure|null $figure
      *
      * @return $this
      */
-    public function setFigureId(?Figure $figureId): self
+    public function setFigure(?Figure $figure): self
     {
-        $this->figureId = $figureId;
+        $this->figure = $figure;
 
         return $this;
     }

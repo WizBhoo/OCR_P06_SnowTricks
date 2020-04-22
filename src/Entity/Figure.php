@@ -33,7 +33,7 @@ class Figure
      * @ORM\ManyToOne(targetEntity="App\Entity\Snowboarder", inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $snowboarderId;
+    private $snowboarder;
 
     /**
      * @var Category
@@ -41,7 +41,7 @@ class Figure
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $categoryId;
+    private $category;
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class Figure
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $name;
 
@@ -81,21 +81,21 @@ class Figure
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figureId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure")
      */
     private $comments;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figureId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figure")
      */
     private $images;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figureId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figure")
      */
     private $videos;
 
@@ -120,19 +120,19 @@ class Figure
     /**
      * @return Snowboarder|null
      */
-    public function getSnowboarderId(): ?Snowboarder
+    public function getSnowboarder(): ?Snowboarder
     {
-        return $this->snowboarderId;
+        return $this->snowboarder;
     }
 
     /**
-     * @param Snowboarder|null $snowboarderId
+     * @param Snowboarder|null $snowboarder
      *
      * @return $this
      */
-    public function setSnowboarderId(?Snowboarder $snowboarderId): self
+    public function setSnowboarder(?Snowboarder $snowboarder): self
     {
-        $this->snowboarderId = $snowboarderId;
+        $this->snowboarder = $snowboarder;
 
         return $this;
     }
@@ -140,19 +140,19 @@ class Figure
     /**
      * @return Category|null
      */
-    public function getCategoryId(): ?Category
+    public function getCategory(): ?Category
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
     /**
-     * @param Category|null $categoryId
+     * @param Category|null $category
      *
      * @return $this
      */
-    public function setCategoryId(?Category $categoryId): self
+    public function setCategory(?Category $category): self
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
 
         return $this;
     }
@@ -274,7 +274,7 @@ class Figure
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setFigureId($this);
+            $comment->setFigure($this);
         }
 
         return $this;
@@ -290,8 +290,8 @@ class Figure
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getFigureId() === $this) {
-                $comment->setFigureId(null);
+            if ($comment->getFigure() === $this) {
+                $comment->setFigure(null);
             }
         }
 
@@ -315,7 +315,7 @@ class Figure
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setFigureId($this);
+            $image->setFigure($this);
         }
 
         return $this;
@@ -331,8 +331,8 @@ class Figure
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getFigureId() === $this) {
-                $image->setFigureId(null);
+            if ($image->getFigure() === $this) {
+                $image->setFigure(null);
             }
         }
 
@@ -356,7 +356,7 @@ class Figure
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
-            $video->setFigureId($this);
+            $video->setFigure($this);
         }
 
         return $this;
@@ -372,8 +372,8 @@ class Figure
         if ($this->videos->contains($video)) {
             $this->videos->removeElement($video);
             // set the owning side to null (unless already changed)
-            if ($video->getFigureId() === $this) {
-                $video->setFigureId(null);
+            if ($video->getFigure() === $this) {
+                $video->setFigure(null);
             }
         }
 

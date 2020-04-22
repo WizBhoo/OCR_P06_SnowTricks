@@ -31,7 +31,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\Figure", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $figureId;
+    private $figure;
 
     /**
      * @var Snowboarder
@@ -39,7 +39,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\Snowboarder", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $snowboarderId;
+    private $snowboarder;
 
     /**
      * @var string
@@ -66,19 +66,19 @@ class Comment
     /**
      * @return Figure|null
      */
-    public function getFigureId(): ?Figure
+    public function getFigure(): ?Figure
     {
-        return $this->figureId;
+        return $this->figure;
     }
 
     /**
-     * @param Figure|null $figureId
+     * @param Figure|null $figure
      *
      * @return $this
      */
-    public function setFigureId(?Figure $figureId): self
+    public function setFigure(?Figure $figure): self
     {
-        $this->figureId = $figureId;
+        $this->figure = $figure;
 
         return $this;
     }
@@ -86,19 +86,19 @@ class Comment
     /**
      * @return Snowboarder|null
      */
-    public function getSnowboarderId(): ?Snowboarder
+    public function getSnowboarder(): ?Snowboarder
     {
-        return $this->snowboarderId;
+        return $this->snowboarder;
     }
 
     /**
-     * @param Snowboarder|null $snowboarderId
+     * @param Snowboarder|null $snowboarder
      *
      * @return $this
      */
-    public function setSnowboarderId(?Snowboarder $snowboarderId): self
+    public function setSnowboarder(?Snowboarder $snowboarder): self
     {
-        $this->snowboarderId = $snowboarderId;
+        $this->snowboarder = $snowboarder;
 
         return $this;
     }
