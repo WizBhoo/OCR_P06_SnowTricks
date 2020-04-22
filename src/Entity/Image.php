@@ -35,9 +35,9 @@ class Image
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", name="is_primary")
      */
-    private $isPrimary;
+    private $primary;
 
     /**
      * @var string
@@ -77,19 +77,19 @@ class Image
     /**
      * @return bool|null
      */
-    public function getIsPrimary(): ?bool
+    public function isPrimary(): ?bool
     {
-        return $this->isPrimary;
+        return $this->primary;
     }
 
     /**
-     * @param bool $isPrimary
+     * @param bool $primary
      *
      * @return $this
      */
-    public function setIsPrimary(bool $isPrimary): self
+    public function setPrimary(bool $primary): self
     {
-        $this->isPrimary = $isPrimary;
+        $this->primary = $primary;
 
         return $this;
     }
