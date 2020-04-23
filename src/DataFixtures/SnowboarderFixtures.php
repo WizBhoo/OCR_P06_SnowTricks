@@ -26,18 +26,18 @@ class SnowboarderFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        for ($snow = 1; $snow < 4; $snow++) {
+        for ($i = 1; $i < 4; $i++) {
             $snowboarder = new Snowboarder();
             $snowboarder
-                ->setLastName('nom '.$snow)
-                ->setFirstName('prenom '.$snow)
-                ->setPseudo('goldfish'.$snow)
-                ->setEmail('demo'.$snow.'@snowtricks.com')
-                ->setPassword('demo'.$snow)
+                ->setLastName('nom '.$i)
+                ->setFirstName('prenom '.$i)
+                ->setPseudo('goldfish'.$i)
+                ->setEmail('demo'.$i.'@snowtricks.com')
+                ->setPassword('demo'.$i)
                 ->setAccountStatus('true')
             ;
             $manager->persist($snowboarder);
-            $this->addReference(self::SNOWBOARDER_REFERENCE_PREFIX.$snow, $snowboarder);
+            $this->addReference(self::SNOWBOARDER_REFERENCE_PREFIX.$i, $snowboarder);
         }
 
         $manager->flush();

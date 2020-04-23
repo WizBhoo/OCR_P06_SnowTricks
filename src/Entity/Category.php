@@ -77,7 +77,7 @@ class Category
     }
 
     /**
-     * @return Collection|Figure[]
+     * @return Collection
      */
     public function getFigures(): Collection
     {
@@ -92,7 +92,7 @@ class Category
     public function addFigure(Figure $figure): self
     {
         if (!$this->figures->contains($figure)) {
-            $this->figures[] = $figure;
+            $this->figures->add($figure);
             $figure->setCategory($this);
         }
 

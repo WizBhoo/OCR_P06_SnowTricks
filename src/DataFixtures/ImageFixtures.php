@@ -25,16 +25,16 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($img = 1; $img < 16; $img++) {
+        for ($i = 1; $i < 16; $i++) {
             $image = new Image();
             $image->setPath('https://loremflickr.com/320/240');
-            if ($img&1) {
+            if ($i&1) {
                 $image->setPrimary('true');
             } else {
                 $image->setPrimary('false');
             }
             $image->setFigure(
-                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.$img)
+                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.$i)
             );
 
             $manager->persist($image);
@@ -51,9 +51,8 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies(): array
     {
-        return array(
+        return [
             FigureFixtures::class,
-        );
-
+        ];
     }
 }

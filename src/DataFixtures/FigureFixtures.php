@@ -28,11 +28,11 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($fig = 1; $fig < 16; $fig++) {
+        for ($i = 1; $i < 16; $i++) {
             $figure = new Figure();
             $figure
-                ->setSlug('slug' .$fig)
-                ->setName('figure '.$fig)
+                ->setSlug('slug'.$i)
+                ->setName('figure '.$i)
                 ->setDescription(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras congue elit sed massa 
                     consequat, quis cursus lectus vulputate. Integer ut luctus lectus. Mauris imperdiet sit amet mi a 
@@ -43,22 +43,22 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
                     $this->getReference(SnowboarderFixtures::SNOWBOARDER_REFERENCE_PREFIX.'1')
                 )
             ;
-            if ($fig < 6) {
+            if ($i < 6) {
                 $figure->setCategory(
                     $this->getReference(CategoryFixtures::CATEGORY_REFERENCE_PREFIX.'1')
                 );
-            } elseif ($fig > 5 && $fig < 11) {
+            } elseif ($i > 5 && $i < 11) {
                 $figure->setCategory(
                     $this->getReference(CategoryFixtures::CATEGORY_REFERENCE_PREFIX.'2')
                 );
-            } elseif ($fig > 10) {
+            } elseif ($i > 10) {
                 $figure->setCategory(
                     $this->getReference(CategoryFixtures::CATEGORY_REFERENCE_PREFIX.'3')
                 );
             }
 
             $manager->persist($figure);
-            $this->addReference(self::FIGURE_REFERENCE_PREFIX.$fig, $figure);
+            $this->addReference(self::FIGURE_REFERENCE_PREFIX.$i, $figure);
         }
 
         $manager->flush();
@@ -72,10 +72,9 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies(): array
     {
-        return array(
+        return [
             CategoryFixtures::class,
             SnowboarderFixtures::class,
-        );
-
+        ];
     }
 }

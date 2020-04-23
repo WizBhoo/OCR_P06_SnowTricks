@@ -25,12 +25,12 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($vid = 1; $vid < 16; $vid++) {
+        for ($i = 1; $i < 16; $i++) {
             $video = new Video();
             $video
-                ->setUrl('video'.$vid)
+                ->setUrl('video'.$i)
                 ->setFigure(
-                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.$vid)
+                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.$i)
                 )
             ;
 
@@ -48,9 +48,8 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies(): array
     {
-        return array(
+        return [
             FigureFixtures::class,
-        );
-
+        ];
     }
 }

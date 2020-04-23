@@ -26,21 +26,22 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($com = 1; $com < 11; $com++) {
+        for ($i = 1; $i < 11; $i++) {
             $comment = new Comment();
             $comment
                 ->setContent(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                     Fusce varius at ligula nec sollicitudin. Morbi est magna, vestibulum ac volutpat.'
                 )
-                ->setCreatedAt(new DateTime());
-            if ($com < 6) {
+                ->setCreatedAt(new DateTime())
+            ;
+            if ($i < 6) {
                 $comment->setFigure(
                     $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.'5')
                 );
-            } elseif ($com > 5) {
+            } elseif ($i > 5) {
                 $comment->setFigure(
-                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX . '10')
+                    $this->getReference(FigureFixtures::FIGURE_REFERENCE_PREFIX.'10')
                 );
             }
             $comment->setSnowboarder(
@@ -61,10 +62,9 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies(): array
     {
-        return array(
+        return [
             FigureFixtures::class,
             SnowboarderFixtures::class,
-        );
-
+        ];
     }
 }

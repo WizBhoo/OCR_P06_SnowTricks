@@ -279,7 +279,7 @@ class Snowboarder
     }
 
     /**
-     * @return Collection|Figure[]
+     * @return Collection
      */
     public function getFigures(): Collection
     {
@@ -294,7 +294,7 @@ class Snowboarder
     public function addFigure(Figure $figure): self
     {
         if (!$this->figures->contains($figure)) {
-            $this->figures[] = $figure;
+            $this->figures->add($figure);
             $figure->setSnowboarder($this);
         }
 
@@ -320,7 +320,7 @@ class Snowboarder
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection
      */
     public function getComments(): Collection
     {
@@ -335,7 +335,7 @@ class Snowboarder
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
+            $this->comments->add($comment);
             $comment->setSnowboarder($this);
         }
 

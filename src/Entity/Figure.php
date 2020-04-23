@@ -258,7 +258,7 @@ class Figure
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection
      */
     public function getComments(): Collection
     {
@@ -273,7 +273,7 @@ class Figure
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
+            $this->comments->add($comment);
             $comment->setFigure($this);
         }
 
@@ -299,7 +299,7 @@ class Figure
     }
 
     /**
-     * @return Collection|Image[]
+     * @return Collection
      */
     public function getImages(): Collection
     {
@@ -314,7 +314,7 @@ class Figure
     public function addImage(Image $image): self
     {
         if (!$this->images->contains($image)) {
-            $this->images[] = $image;
+            $this->images->add($image);
             $image->setFigure($this);
         }
 
@@ -340,7 +340,7 @@ class Figure
     }
 
     /**
-     * @return Collection|Video[]
+     * @return Collection
      */
     public function getVideos(): Collection
     {
@@ -355,7 +355,7 @@ class Figure
     public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
+            $this->videos->add($video);
             $video->setFigure($this);
         }
 

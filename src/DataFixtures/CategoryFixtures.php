@@ -26,11 +26,11 @@ class CategoryFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        for ($cat = 1; $cat < 4; $cat++) {
+        for ($i = 1; $i < 4; $i++) {
             $category = new Category();
-            $category->setName('category '.$cat);
+            $category->setName('category '.$i);
             $manager->persist($category);
-            $this->addReference(self::CATEGORY_REFERENCE_PREFIX.$cat, $category);
+            $this->addReference(self::CATEGORY_REFERENCE_PREFIX.$i, $category);
         }
 
         $manager->flush();
