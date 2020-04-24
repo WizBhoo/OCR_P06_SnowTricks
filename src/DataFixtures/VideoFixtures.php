@@ -25,7 +25,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i < 16; $i++) {
+        for ($i = 1; $i < 21; $i++) {
             $video = new Video();
             $video
                 ->setUrl('video'.$i)

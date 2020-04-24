@@ -25,7 +25,7 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i < 16; $i++) {
+        for ($i = 1; $i < 21; $i++) {
             $image = new Image();
             $image->setPath('https://loremflickr.com/320/240');
             if ($i&1) {

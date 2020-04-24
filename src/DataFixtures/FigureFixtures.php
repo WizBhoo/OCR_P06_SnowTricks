@@ -28,7 +28,7 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i < 16; $i++) {
+        for ($i = 1; $i < 21; $i++) {
             $figure = new Figure();
             $figure
                 ->setSlug('slug'.$i)
