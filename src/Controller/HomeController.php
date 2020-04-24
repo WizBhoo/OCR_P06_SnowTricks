@@ -6,8 +6,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Figure;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Manager\FigureManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,18 +18,13 @@ class HomeController extends AbstractController
     /**
      * Show homepage with the figures list
      *
-     * @param EntityManagerInterface $entityManager
+     * @param FigureManager $figureManager
      *
      * @return Response
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(FigureManager $figureManager): Response
     {
-        $figures = $entityManager
-            ->getRepository(Figure::class)
-            ->findAll()
-        ;
-
-        $entityManager->flush();
+        $figures = $figureManager->findAllFigure();
 
         return $this->render(
             'home/index.html.twig',
