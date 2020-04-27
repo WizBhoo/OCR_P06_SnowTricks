@@ -42,10 +42,12 @@
                                         <a href="#">{{ figure.name }}</a>
                                     </h4>
                                 </div>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <div class="col-6">
                                     <a href="#" id="edit" class="card-link"><i class="fas fa-pencil-alt"></i></a>
                                     <a href="#" id="delete" class="card-link"><i class="fas fa-trash-alt"></i></a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

@@ -13,12 +13,25 @@ body {
     font-family: "Josefin Sans", sans-serif;
 }
 
-.navbar-light, .footer_area {
+.navbar-light, .footer-area {
     background-color: #e3f2fd;
 }
 
 .main-container {
     padding-top: 80px;
+}
+
+.btn-light {
+    margin: 30px 0 30px 0;
+    color: #000;
+    background-color: #e3f2fd;
+    border: none;
+}
+
+.btn-light:hover {
+    color: #e3f2fd;
+    background-color: #000;
+    border: none;
 }
 
 /*----------------------------------------------------
@@ -189,20 +202,6 @@ Site Home CSS rules - Tricks Area
     margin-left: 20px;
 }
 
-.btn-light {
-    margin-top: 50px;
-    margin-right: 0;
-    color: #000;
-    background-color: #e3f2fd;
-    border: none;
-}
-
-.btn-light:hover {
-    color: #e3f2fd;
-    background-color: #000;
-    border: none;
-}
-
 #scroll-up {
     position: relative;
     bottom: -80px;
@@ -253,27 +252,35 @@ Site Home CSS rules - Tricks Area
 }
 
 /*----------------------------------------------------
+Site Login CSS rules - Login Area
+----------------------------------------------------*/
+
+.login-area {
+    height: calc(100vh - 330px);
+}
+
+/*----------------------------------------------------
 Layout CSS rules - Footer Area
 ----------------------------------------------------*/
 
-.footer_area {
-    height: 300px;
+.footer-area {
+    height: 250px;
 }
 
-.footer_area .container, .footer_area .row {
+.footer-area .container, .footer-area .row {
     height: 100%;
 }
 
-.social_widget h4 {
+.social-widget h4 {
     font-size: 21px;
     margin: 40px 0 20px;
 }
 
-.social_widget {
+.social-widget {
     display: inline-block;
 }
 
-.social_widget a {
+.social-widget a {
     color: #000;
     font-size: 36px;
     -webkit-transition: all 0.4s ease 0s;
@@ -282,7 +289,7 @@ Layout CSS rules - Footer Area
     transition: all 0.4s ease 0s;
 }
 
-.social_widget a:hover {
+.social-widget a:hover {
     color: rgba(0,0,0,0.5);
     text-decoration: none;
 }

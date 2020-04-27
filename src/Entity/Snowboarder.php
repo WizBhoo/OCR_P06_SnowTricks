@@ -10,13 +10,14 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Entity Class Snowboarder
  *
  * @ORM\Entity(repositoryClass="App\Repository\SnowboarderRepository")
  */
-class Snowboarder
+class Snowboarder implements UserInterface
 {
     /**
      * @var int
@@ -56,11 +57,18 @@ class Snowboarder
     private $email;
 
     /**
-     * @var string
+     * @var string The hashed password
      *
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * Token used for account activation or to reset account password
@@ -159,11 +167,13 @@ class Snowboarder
     }
 
     /**
-     * @return string|null
+     * The visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getPseudo(): ?string
+    public function getUsername(): string
     {
-        return $this->pseudo;
+        return (string) $this->pseudo;
     }
 
     /**
@@ -171,7 +181,7 @@ class Snowboarder
      *
      * @return $this
      */
-    public function setPseudo(string $pseudo): self
+    public function setUsername(string $pseudo): self
     {
         $this->pseudo = $pseudo;
 
@@ -199,11 +209,11 @@ class Snowboarder
     }
 
     /**
-     * @return string|null
+     * @see UserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
     /**
@@ -214,6 +224,30 @@ class Snowboarder
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param array $roles
+     *
+     * @return $this
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
@@ -358,5 +392,22 @@ class Snowboarder
         }
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        $this->accountToken = null;
+        $this->accountTokenAt = null;
     }
 }
