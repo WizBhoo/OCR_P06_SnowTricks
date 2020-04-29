@@ -1,422 +1,450 @@
-/*----------------------------------------------------
+/* ----------------------------------------------------
 @Template Name: SnowTricks - APi
 @Developed By: Adrien PIERRARD
 Author E-mail: adrien.pierrard@gmail.com
-----------------------------------------------------*/
+---------------------------------------------------- */
 
 @import url(https://fonts.googleapis.com/css?family=Josefin+Sans:300,400);
 
-html, body {
-    height: 100%;
-}
+html,
 body {
-    font-family: "Josefin Sans", sans-serif;
+  height: 100%;
 }
 
-.navbar-light, .footer-area {
-    background-color: #e3f2fd;
+body {
+  font-family: "Josefin Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-light,
+.footer-area {
+  background-color: #e3f2fd;
 }
 
 .main-container {
-    padding-top: 80px;
+  padding-top: 80px;
 }
 
 .btn-light {
-    margin: 30px 0 30px 0;
-    color: #000;
-    background-color: #e3f2fd;
-    border: none;
+  margin: 30px 0 30px 0;
+  color: #000;
+  background-color: #e3f2fd;
+  border: none;
 }
 
 .btn-light:hover {
-    color: #e3f2fd;
-    background-color: #000;
-    border: none;
+  color: #e3f2fd;
+  background-color: #000;
+  border: none;
 }
 
-/*----------------------------------------------------
-Site Home CSS rules - Banner Area
-----------------------------------------------------*/
+/* ----------------------------------------------------
+Site Login CSS rules - Login, Register and Reset Area
+---------------------------------------------------- */
 
-article {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.login-area span {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
 }
 
-article::after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    content: '';
-    width: 100%;
-    height: 80%;
+.login-area a {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
 }
 
-/*----------------------------------------------------*/
-
-.site-intro {
-    width: 100%;
-    height: calc(100vh - 80px);
-    background-image: url("../img/banner/main_banner.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+.login-area a:hover {
+  text-decoration: none;
+  color: #666;
 }
 
-.site-intro .jumbotron {
-    padding: 55vh 60px 100px 60px;
-    text-align: center;
-    margin: 0;
-    background-color: transparent;
+label.required::before {
+  content: "*";
 }
 
-.main-title {
-    font-size: 5.5rem;
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-.main-subtitle {
-    font-size: 1.25rem;
-    font-weight: 300;
-}
-
-#scroll-up, #scroll-down {
-    left: 50%;
-    z-index: 2;
-    display: inline-block;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    color: #000;
-    font : normal 400 20px/1 'Josefin Sans', sans-serif;
-    letter-spacing: .1em;
-    text-decoration: none;
-    transition: opacity .3s;
-}
-
-#scroll-down {
-    position: absolute;
-    bottom: 20px;
-
-}
-
-#scroll-down:hover, #scroll-up:hover {
-    opacity: .5;
-}
-
-#scroll-down, #scroll-up {
-    padding-top: 70px;
-}
-
-#scroll-down span {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    border-left: 1px solid #000;
-    border-bottom: 1px solid #000;
-    -webkit-transform: rotateZ(-45deg);
-    transform: rotateZ(-45deg);
-    -webkit-animation: pdd01 1.5s infinite;
-    animation: pdd01 1.5s infinite;
-    box-sizing: border-box;
-}
-
-@-webkit-keyframes pdd01 {
-    0% {
-        -webkit-transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
-        opacity: 0;
-    }
-}
-
-@keyframes pdd01 {
-    0% {
-        transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
-        opacity: 0;
-    }
-}
-
-/*----------------------------------------------------
-Site Home CSS rules - Tricks Area
-----------------------------------------------------*/
-
-.site-gallery {
-    padding-top: 30px;
-    padding-bottom: 60px;
-    text-align: center;
-}
-
-.site-gallery h2, .site-gallery p {
-    text-align: center;
-}
-
-.site-gallery .card-columns .card {
-    width: 17rem;
-    margin: 15px 20px;
-}
-
-.site-gallery .card-body h4 {
-    margin-bottom: 0;
-}
-
-.site-gallery .card-body .card-title a {
-    color: #000;
-    text-decoration: none;
-}
-
-.site-gallery .card-body .card-title a:hover {
-    color: rgba(0, 0, 0, 0.5);
-}
-
-.site-gallery .card-body .card-link {
-    margin-left: 40px;
-    color: #000;
-}
-
-#edit:hover {
-    color: #2ca02c;
-}
-
-#delete:hover {
-    color: #dc3545;
-}
-
-.site-gallery .card-body .card-link+.card-link {
-    margin-left: 20px;
-}
-
-#scroll-up {
-    position: relative;
-    bottom: -80px;
-}
-
-#scroll-up span {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    border-left: 1px solid #000;
-    border-bottom: 1px solid #000;
-    -webkit-transform: rotateZ(45deg);
-    transform: rotateZ(45deg);
-    -webkit-animation: pdd02 1.5s infinite;
-    animation: pdd02 1.5s infinite;
-    box-sizing: border-box;
-}
-
-@-webkit-keyframes pdd02 {
-    0% {
-        -webkit-transform: rotateY(0) rotateZ(-225deg) translate(20px, -20px);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: rotateY(720deg) rotateZ(-225deg) translate(0, 0);
-        opacity: 0;
-    }
-}
-
-@keyframes pdd02 {
-    0% {
-        transform: rotateY(0) rotateZ(-225deg) translate(20px, -20px);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: rotateY(720deg) rotateZ(-225deg) translate(0, 0);
-        opacity: 0;
-    }
-}
-
-/*----------------------------------------------------
-Site Login CSS rules - Login, Register Area
-----------------------------------------------------*/
-
-.login-area, .register-area {
-    height: calc(100vh - 330px);
-}
-
-label.required:before {
-    content: "*";
-}
-
-/*----------------------------------------------------
+/* ----------------------------------------------------
 Layout CSS rules - Footer Area
-----------------------------------------------------*/
+---------------------------------------------------- */
 
 .footer-area {
-    height: 250px;
+  height: 250px;
+  margin-top: auto;
 }
 
-.footer-area .container, .footer-area .row {
-    height: 100%;
+.footer-area .container,
+.footer-area .row {
+  height: 100%;
 }
 
 .social-widget h4 {
-    font-size: 21px;
-    margin: 40px 0 20px;
+  font-size: 21px;
+  margin: 40px 0 20px;
 }
 
 .social-widget {
-    display: inline-block;
+  display: inline-block;
 }
 
 .social-widget a {
-    color: #000;
-    font-size: 36px;
-    -webkit-transition: all 0.4s ease 0s;
-    -moz-transition: all 0.4s ease 0s;
-    -o-transition: all 0.4s ease 0s;
-    transition: all 0.4s ease 0s;
+  color: #000;
+  font-size: 36px;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .social-widget a:hover {
-    color: rgba(0,0,0,0.5);
-    text-decoration: none;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 
 .copyright {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .copyright p {
-    color: #000;
-    font-size: 14px;
-    line-height: 24px;
-    margin-bottom: 10px;
+  color: #000;
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
 }
 
 .copyright p a {
-    color: #000;
+  color: #000;
 }
 
 .copyright p a:hover {
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 
-/*----------------------------------------------------
+/* ----------------------------------------------------
+Site Home CSS rules - Banner Area
+---------------------------------------------------- */
+
+article {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+article::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 80%;
+}
+
+/* ---------------------------------------------------- */
+
+.site-intro {
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-image: url("../img/banner/main_banner.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.site-intro .jumbotron {
+  padding: 55vh 60px 100px 60px;
+  text-align: center;
+  margin: 0;
+  background-color: transparent;
+}
+
+.main-title {
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.main-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+#scroll-up,
+#scroll-down {
+  padding-top: 70px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #000;
+  font: normal 400 20px/1 'Josefin Sans', sans-serif;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+#scroll-down {
+  position: absolute;
+  bottom: 20px;
+}
+
+#scroll-up {
+  position: relative;
+  bottom: -80px;
+}
+
+#scroll-down:hover,
+#scroll-up:hover {
+  opacity: 0.5;
+}
+
+#scroll-down span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  -webkit-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+  -webkit-animation: pdd01 1.5s infinite;
+  animation: pdd01 1.5s infinite;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes pdd01 {
+  0% {
+    -webkit-transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes pdd01 {
+  0% {
+    transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+/* ----------------------------------------------------
+Site Home CSS rules - Tricks Area
+---------------------------------------------------- */
+
+.site-gallery {
+  padding-top: 30px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+.site-gallery h2,
+.site-gallery p {
+  text-align: center;
+}
+
+.site-gallery .card-columns .card {
+  width: 17rem;
+  margin: 15px 20px;
+}
+
+.site-gallery .card-body h4 {
+  margin-bottom: 0;
+}
+
+.site-gallery .card-body .card-title a {
+  color: #000;
+  text-decoration: none;
+}
+
+.site-gallery .card-body .card-title a:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.site-gallery .card-body .card-link {
+  margin-left: 40px;
+  color: #000;
+}
+
+#edit:hover {
+  color: #2ca02c;
+}
+
+#delete:hover {
+  color: #dc3545;
+}
+
+.site-gallery .card-body .card-link + .card-link {
+  margin-left: 20px;
+}
+
+#scroll-up span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+  -webkit-animation: pdd02 1.5s infinite;
+  animation: pdd02 1.5s infinite;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes pdd02 {
+  0% {
+    -webkit-transform: rotateY(0) rotateZ(-225deg) translate(20px, -20px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: rotateY(720deg) rotateZ(-225deg) translate(0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes pdd02 {
+  0% {
+    transform: rotateY(0) rotateZ(-225deg) translate(20px, -20px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotateY(720deg) rotateZ(-225deg) translate(0, 0);
+    opacity: 0;
+  }
+}
+
+/* ----------------------------------------------------
 Media Queries
------------------------------------------------------*/
+----------------------------------------------------- */
+
 @media (max-width: 1024px) and (max-height: 1366px) {
-    .site-intro {
-        background-position: -570px center;
-    }
+  .site-intro {
+    background-position: -570px center;
+  }
 }
 
 @media (max-width: 1024px) and (max-height: 768px) {
-    .site-intro {
-        background-position: center center;
-    }
+  .site-intro {
+    background-position: center center;
+  }
 
-    .main-title {
-        font-size: 4rem;
-    }
+  .main-title {
+    font-size: 4rem;
+  }
 
-    .site-intro .jumbotron {
-        padding: 55vh 60px 100px 60px;
-    }
+  .site-intro .jumbotron {
+    padding: 55vh 60px 100px 60px;
+  }
 }
 
 @media (max-width: 812px) and (max-height: 414px) {
-    .main-title {
-        font-size: 2rem;
-    }
+  .main-title {
+    font-size: 2rem;
+  }
 
-    .site-intro .jumbotron {
-        padding: 25vh 0 95px 0;
-        margin-right: 570px;
-    }
+  .site-intro .jumbotron {
+    padding: 25vh 0 95px 0;
+    margin-right: 570px;
+  }
 }
 
 @media (max-width: 768px) and (max-height: 1024px) {
-    .site-intro {
-        background-position: -400px center;
-    }
+  .site-intro {
+    background-position: -400px center;
+  }
 }
 
 @media (max-width: 736px) and (max-height: 414px) {
-    .site-intro {
-        background-position: center center;
-    }
+  .site-intro {
+    background-position: center center;
+  }
 
-    .main-title {
-        font-size: 2rem;
-    }
+  .main-title {
+    font-size: 2rem;
+  }
 
-    .site-intro .jumbotron {
-        padding: 25vh 0 95px 0;
-        margin-right: 393px;
-    }
+  .site-intro .jumbotron {
+    padding: 25vh 0 95px 0;
+    margin-right: 393px;
+  }
 
-    .site-gallery .card-columns .card {
-        margin: 15px auto;
-    }
+  .site-gallery .card-columns .card {
+    margin: 15px auto;
+  }
 }
 
 @media (max-width: 414px) and (max-height: 812px) {
-    .site-intro {
-        background-position: -540px center;
-    }
+  .site-intro {
+    background-position: -540px center;
+  }
 
-    .main-title {
-        font-size: 3rem;
-    }
+  .main-title {
+    font-size: 3rem;
+  }
 
-    .site-intro .jumbotron {
-        padding: 4vh 0 95px 0;
-    }
+  .site-intro .jumbotron {
+    padding: 4vh 0 95px 0;
+  }
 
-    .site-gallery .card-columns .card {
-        margin: 15px auto;
-    }
+  .site-gallery .card-columns .card {
+    margin: 15px auto;
+  }
 }
 
 @media (max-width: 414px) and (max-height: 736px) {
-    .site-intro {
-        background-position: -450px center;
-    }
+  .site-intro {
+    background-position: -450px center;
+  }
 }
 
 @media (max-width: 375px) and (max-height: 667px) {
-    .site-intro {
-        background-position: -400px center;
-    }
+  .site-intro {
+    background-position: -400px center;
+  }
 
-    .main-title {
-        font-size: 2.5rem;
-    }
+  .main-title {
+    font-size: 2.5rem;
+  }
 
-    .site-intro .jumbotron {
-        padding: 3vh 0 95px 0;
-    }
+  .site-intro .jumbotron {
+    padding: 3vh 0 95px 0;
+  }
 }
 
 @media (max-width: 320px) and (max-height: 568px) {
-    .site-intro {
-        background-position: -330px center;
-    }
+  .site-intro {
+    background-position: -330px center;
+  }
 }

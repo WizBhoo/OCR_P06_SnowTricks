@@ -21,6 +21,11 @@ class FigureManager
      */
     private $figureRepository;
 
+    /**
+     * FigureManager constructor.
+     *
+     * @param FigureRepository $figureRepository
+     */
     public function __construct(FigureRepository $figureRepository)
     {
         $this->figureRepository = $figureRepository;

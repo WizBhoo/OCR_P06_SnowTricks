@@ -131,11 +131,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-        $snowboarder = $this->entityManager->getRepository(Snowboarder::class)->findOneBy(['username' => $credentials['username']]);
+        $snowboarder = $this->entityManager
+            ->getRepository(Snowboarder::class)
+            ->findOneBy(['username' => $credentials['username']])
+        ;
 
         if (!$snowboarder) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('This username is not link to any account.');
+            throw new CustomUserMessageAuthenticationException(
+                'Invalid credentials.'
+            );
         }
 
         return $snowboarder;
@@ -151,7 +156,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      */
     public function checkCredentials($credentials, UserInterface $snowboarder): bool
     {
-        return $this->passwordEncoder->isPasswordValid($snowboarder, $credentials['password']);
+        return $this->passwordEncoder->isPasswordValid(
+            $snowboarder,
+            $credentials['password']
+        );
     }
 
     /**

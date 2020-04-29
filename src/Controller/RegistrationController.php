@@ -34,7 +34,6 @@ class RegistrationController extends AbstractController
     public function register(Request $request, SnowboarderManager $snowboarderManager): Response
     {
         $user = new Snowboarder();
-        $user->setAccountStatus(false);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

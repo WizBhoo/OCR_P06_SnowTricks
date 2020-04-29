@@ -15,4 +15,5 @@ framework:
     php_errors:
         log: true
 
-    validation: { enable_annotations: true }
+    validation:
+        enable_annotations: true

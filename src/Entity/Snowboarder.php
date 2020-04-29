@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Entity Class Snowboarder
  *
  * @ORM\Entity(repositoryClass="App\Repository\SnowboarderRepository")
- * @UniqueEntity(fields={"username"}, message="This Pseudo already exists")
+ * @UniqueEntity(fields={"username"}, message="This Pseudo already exists", groups={"registration"})
  */
 class Snowboarder implements UserInterface
 {
@@ -36,13 +36,14 @@ class Snowboarder implements UserInterface
      *
      * @ORM\Column(type="string", length=30)
      *
-     * @Assert\NotBlank(message="You must choose a Lastname")
+     * @Assert\NotBlank(message="You must choose a Lastname", groups={"registration"})
      * @Assert\Length(
      *     min=4,
      *     max=30,
      *     minMessage="Your Firstname should contain at least {{ limit }} characters",
      *     maxMessage="Your Firstname should not contain more than {{ limit }} characters",
-     *     allowEmptyString=false
+     *     allowEmptyString=false,
+     *     groups={"registration"}
      * )
      */
     private $lastName;
@@ -52,13 +53,14 @@ class Snowboarder implements UserInterface
      *
      * @ORM\Column(type="string", length=30)
      *
-     * @Assert\NotBlank(message="You must choose a Firstname")
+     * @Assert\NotBlank(message="You must choose a Firstname", groups={"registration"})
      * @Assert\Length(
      *     min=3,
      *     max=30,
      *     minMessage="Your Lastname should contain at least {{ limit }} characters",
      *     maxMessage="Your Lastname should not contain more than {{ limit }} characters",
-     *     allowEmptyString=false
+     *     allowEmptyString=false,
+     *     groups={"registration"}
      * )
      */
     private $firstName;
@@ -68,13 +70,14 @@ class Snowboarder implements UserInterface
      *
      * @ORM\Column(type="string", length=30, unique=true)
      *
-     * @Assert\NotBlank(message="You must choose a Username")
+     * @Assert\NotBlank(message="You must choose a Username", groups={"registration"})
      * @Assert\Length(
      *     min=3,
      *     max=30,
      *     minMessage="Your Username should contain at least {{ limit }} characters",
      *     maxMessage="Your Username should not contain more than {{ limit }} characters",
-     *     allowEmptyString=false
+     *     allowEmptyString=false,
+     *     groups={"registration"}
      * )
      */
     private $username;
@@ -84,8 +87,8 @@ class Snowboarder implements UserInterface
      *
      * @ORM\Column(type="string", length=100, unique=true)
      *
-     * @Assert\NotBlank(message="You must enter an email")
-     * @Assert\Email(message="The Email '{{ value }}' is not a valid email",)
+     * @Assert\NotBlank(message="You must enter an email", groups={"registration"})
+     * @Assert\Email(message="The Email '{{ value }}' is not a valid email", groups={"registration"})
      */
     private $email;
 
@@ -94,12 +97,13 @@ class Snowboarder implements UserInterface
      *
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank(message="You must choose a Password")
+     * @Assert\NotBlank(message="You must choose a Password", groups={"registration"})
      * @Assert\Length(
      *     min=5,
      *     max=255,
      *     minMessage="Your Password should contain at least {{ limit }} characters",
-     *     allowEmptyString=false
+     *     allowEmptyString=false,
+     *     groups={"registration"}
      * )
      */
     private $password;
@@ -132,9 +136,9 @@ class Snowboarder implements UserInterface
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default"=false})
      */
-    private $accountStatus;
+    private $accountStatus = false;
 
     /**
      * @var ArrayCollection
