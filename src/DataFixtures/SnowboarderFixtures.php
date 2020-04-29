@@ -55,7 +55,6 @@ class SnowboarderFixtures extends Fixture
                 ->setUsername('goldfish'.$i)
                 ->setEmail('demo'.$i.'@snowtricks.com')
                 ->setPassword($this->passwordEncoder->encodePassword($snowboarder, 'demo'.$i))
-                ->setRoles(['ROLE_USER'])
                 ->setAccountStatus('true')
             ;
             $manager->persist($snowboarder);

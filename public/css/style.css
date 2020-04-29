@@ -252,11 +252,15 @@ Site Home CSS rules - Tricks Area
 }
 
 /*----------------------------------------------------
-Site Login CSS rules - Login Area
+Site Login CSS rules - Login, Register Area
 ----------------------------------------------------*/
 
-.login-area {
+.login-area, .register-area {
     height: calc(100vh - 330px);
+}
+
+label.required:before {
+    content: "*";
 }
 
 /*----------------------------------------------------

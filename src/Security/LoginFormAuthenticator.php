@@ -104,13 +104,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'pseudo' => $request->request->get('pseudo'),
+            'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
-            $credentials['pseudo']
+            $credentials['username']
         );
 
         return $credentials;
@@ -131,11 +131,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-        $snowboarder = $this->entityManager->getRepository(Snowboarder::class)->findOneBy(['pseudo' => $credentials['pseudo']]);
+        $snowboarder = $this->entityManager->getRepository(Snowboarder::class)->findOneBy(['username' => $credentials['username']]);
 
         if (!$snowboarder) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Ce pseudo n\'existe pas');
+            throw new CustomUserMessageAuthenticationException('This username is not link to any account.');
         }
 
         return $snowboarder;

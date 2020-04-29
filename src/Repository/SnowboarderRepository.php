@@ -61,4 +61,20 @@ class SnowboarderRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->persist($snowboarder);
         $this->_em->flush();
     }
+
+    /**
+     * Persists new Snowboarder in db
+     *
+     * @param Snowboarder $snowboarder
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function create(Snowboarder $snowboarder): void
+    {
+        $this->_em->persist($snowboarder);
+        $this->_em->flush();
+    }
 }
