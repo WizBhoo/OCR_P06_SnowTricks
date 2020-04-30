@@ -218,7 +218,7 @@ class Snowboarder implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     /**
@@ -258,7 +258,7 @@ class Snowboarder implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     /**
