@@ -10,13 +10,17 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entity Class Snowboarder
  *
  * @ORM\Entity(repositoryClass="App\Repository\SnowboarderRepository")
+ * @UniqueEntity(fields={"username"}, message="This Pseudo already exists", groups={"registration"})
  */
-class Snowboarder
+class Snowboarder implements UserInterface
 {
     /**
      * @var int
@@ -31,6 +35,16 @@ class Snowboarder
      * @var string
      *
      * @ORM\Column(type="string", length=30)
+     *
+     * @Assert\NotBlank(message="You must choose a Lastname", groups={"registration"})
+     * @Assert\Length(
+     *     min=4,
+     *     max=30,
+     *     minMessage="Your Firstname should contain at least {{ limit }} characters",
+     *     maxMessage="Your Firstname should not contain more than {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"registration"}
+     * )
      */
     private $lastName;
 
@@ -38,6 +52,16 @@ class Snowboarder
      * @var string
      *
      * @ORM\Column(type="string", length=30)
+     *
+     * @Assert\NotBlank(message="You must choose a Firstname", groups={"registration"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=30,
+     *     minMessage="Your Lastname should contain at least {{ limit }} characters",
+     *     maxMessage="Your Lastname should not contain more than {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"registration"}
+     * )
      */
     private $firstName;
 
@@ -45,22 +69,51 @@ class Snowboarder
      * @var string
      *
      * @ORM\Column(type="string", length=30, unique=true)
+     *
+     * @Assert\NotBlank(message="You must choose a Username", groups={"registration"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=30,
+     *     minMessage="Your Username should contain at least {{ limit }} characters",
+     *     maxMessage="Your Username should not contain more than {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"registration"}
+     * )
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=100, unique=true)
+     *
+     * @Assert\NotBlank(message="You must enter an email", groups={"registration"})
+     * @Assert\Email(message="The Email '{{ value }}' is not a valid email", groups={"registration"})
      */
     private $email;
 
     /**
-     * @var string
+     * @var string The hashed password
      *
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(message="You must choose a Password", groups={"registration"})
+     * @Assert\Length(
+     *     min=5,
+     *     max=255,
+     *     minMessage="Your Password should contain at least {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"registration"}
+     * )
      */
     private $password;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * Token used for account activation or to reset account password
@@ -83,9 +136,9 @@ class Snowboarder
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default"=false})
      */
-    private $accountStatus;
+    private $accountStatus = false;
 
     /**
      * @var ArrayCollection
@@ -159,21 +212,23 @@ class Snowboarder
     }
 
     /**
-     * @return string|null
+     * The visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getPseudo(): ?string
+    public function getUsername(): string
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
-     * @param string $pseudo
+     * @param string $username
      *
      * @return $this
      */
-    public function setPseudo(string $pseudo): self
+    public function setUsername(string $username): self
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
@@ -199,9 +254,9 @@ class Snowboarder
     }
 
     /**
-     * @return string|null
+     * @see UserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -214,6 +269,30 @@ class Snowboarder
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param array $roles
+     *
+     * @return $this
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
@@ -358,5 +437,22 @@ class Snowboarder
         }
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        $this->accountToken = null;
+        $this->accountTokenAt = null;
     }
 }

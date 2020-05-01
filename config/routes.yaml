@@ -1,3 +1,29 @@
 index:
     path: /
     controller: App\Controller\HomeController::index
+    methods: GET
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: GET|POST
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+    methods: GET
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+    methods: GET|POST
+
+app_forgotten_password:
+    path: /forgotten-password
+    controller: App\Controller\ForgottenPasswordController::forgottenPassword
+    methods: GET|POST
+
+app_reset_password:
+    path: /reset-password/{id}/{token}
+    controller: App\Controller\ResetPasswordController::resetPassword
+    methods: GET|POST
