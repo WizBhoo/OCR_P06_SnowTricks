@@ -17,3 +17,13 @@ app_register:
     path: /register
     controller: App\Controller\RegistrationController::register
     methods: GET|POST
+
+app_forgotten_password:
+    path: /forgotten-password
+    controller: App\Controller\ForgottenPasswordController::forgottenPassword
+    methods: GET|POST
+
+app_reset_password:
+    path: /reset-password/{id}/{token}
+    controller: App\Controller\ResetPasswordController::resetPassword
+    methods: GET|POST
