@@ -3,4 +3,4 @@ Bonjour {{ username }}
 Vous avez créé un compte avec l'email suivant : {{ email.to[0].address }}
 
 Cliquez sur ce lien pour activer votre compte : {{ url }}
-(Ce lien est valide durant {{ expiration_date|date('F jS') }})
+(Ce lien est valide jusqu'au {{ expiration_date|date('d/m/Y à H:i') }})

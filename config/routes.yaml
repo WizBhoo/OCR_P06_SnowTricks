@@ -18,6 +18,11 @@ app_register:
     controller: App\Controller\RegistrationController::register
     methods: GET|POST
 
+app_account_activation:
+    path: /account-activation/{id}/{token}
+    controller: App\Controller\AccountController::activation
+    methods: GET
+
 app_forgotten_password:
     path: /forgotten-password
     controller: App\Controller\ForgottenPasswordController::forgottenPassword

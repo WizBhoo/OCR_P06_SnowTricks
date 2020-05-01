@@ -214,9 +214,9 @@ class Snowboarder implements UserInterface
     /**
      * The visual identifier that represents this user.
      *
-     * @see UserInterface
+     * @see UserInterface|null
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -256,7 +256,7 @@ class Snowboarder implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

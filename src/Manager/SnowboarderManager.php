@@ -60,12 +60,12 @@ class SnowboarderManager
      * @param Snowboarder $snowboarder
      * @param string      $password
      *
-     * @return void
+     * @return Snowboarder
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function createSnowboarder(Snowboarder $snowboarder, string $password): void
+    public function createSnowboarder(Snowboarder $snowboarder, string $password): Snowboarder
     {
         $snowboarder->setPassword(
             $this->passwordEncoder->encodePassword(
@@ -75,6 +75,8 @@ class SnowboarderManager
         );
 
         $this->snowboarderRepository->create($snowboarder);
+
+        return $snowboarder;
     }
 
     /**
@@ -146,6 +148,24 @@ class SnowboarderManager
                 $password
             )
         );
+        $snowboarder->eraseCredentials();
+
+        $this->snowboarderRepository->update();
+    }
+
+    /**
+     * Activate Snowboarder's account status in db
+     *
+     * @param Snowboarder $snowboarder
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function activateAccount(Snowboarder $snowboarder): void
+    {
+        $snowboarder->setAccountStatus('true');
         $snowboarder->eraseCredentials();
 
         $this->snowboarderRepository->update();

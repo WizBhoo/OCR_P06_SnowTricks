@@ -10,6 +10,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <h1 class="h3 mb-3 mt-5 font-weight-normal text-center">Créez votre compte utilisateur</h1>
+                    {% for message in app.flashes('alert') %}
+                        <div class="alert alert-danger text-center">
+                            {{ message|trans(app.flashes, 'messages') }}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="row">

@@ -11,11 +11,6 @@
                 <div class="jumbotron">
                     <div class="row">
                         <div class="col-lg-12">
-                            {% for message in app.flashes('success') %}
-                                <div class="flash-notice text-center">
-                                    {{ message|trans(app.flashes, 'messages') }}
-                                </div>
-                            {% endfor %}
                             <h1 class="main-title">SnowTricks</h1>
                             <p class="main-subtitle">Born to Ride !</p>
                         </div>
