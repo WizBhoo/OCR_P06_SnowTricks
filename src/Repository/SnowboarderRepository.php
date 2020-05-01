@@ -77,4 +77,15 @@ class SnowboarderRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->persist($snowboarder);
         $this->_em->flush();
     }
+
+    /**
+     * Update a Snowboarder in db
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(): void
+    {
+        $this->_em->flush();
+    }
 }

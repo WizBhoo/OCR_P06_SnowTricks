@@ -1,0 +1,13 @@
+<h1>Bonjour {{ username }}</h1>
+
+<p>
+    Vous avez créé un compte avec l'email suivant :
+</p>
+<p><code>{{ email.to[0].address }}</code></p>
+
+<p>
+    <a href="{{ url }}">
+        Cliquez sur ce lien pour activer votre compte.
+    </a>
+    (Ce lien est valide durant {{ expiration_date|date('F jS') }})
+</p>

@@ -24,6 +24,6 @@ app_forgotten_password:
     methods: GET|POST
 
 app_reset_password:
-    path: /reset-password
+    path: /reset-password/{id}/{token}
     controller: App\Controller\ResetPasswordController::resetPassword
     methods: GET|POST
