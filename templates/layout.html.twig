@@ -6,6 +6,13 @@
         <a class="navbar-brand" href="{{ path('index') }}">
             <img src="{{ asset('img/logo.png') }}" alt="SnowTricks logo">
         </a>
+        {% for messages in app.flashes(['success', 'notice']) %}
+            {% for message in messages %}
+                <div class="flash-notice text-center">
+                    {{ message|trans(messages, 'messages') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"

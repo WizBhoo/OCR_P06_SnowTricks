@@ -23,8 +23,6 @@ class ResetPasswordController extends AbstractController
      * Reset password form to update user password
      *
      * @param Request            $request
-     * @param int                $id
-     * @param string             $token
      * @param SnowboarderManager $snowboarderManager
      *
      * @return Response
@@ -32,19 +30,22 @@ class ResetPasswordController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function resetPassword(Request $request, int $id, string $token, SnowboarderManager $snowboarderManager): Response
+    public function resetPassword(Request $request, SnowboarderManager $snowboarderManager): Response
     {
         $form = $this->createForm(ResetPasswordFormType::class);
         $form->handleRequest($request);
-        $snowboarder = $snowboarderManager->findSnowboarder($id);
+        $username = $request->get('username');
+        $snowboarder = $snowboarderManager
+            ->findSnowboarderBy($username);
 
-        if (!$snowboarder) {
+        if (!$snowboarder || null === $username) {
             $this->addFlash('alert', 'Error, try again.');
 
             return $this->redirectToRoute('app_forgotten_password');
         }
 
         $passwordResetAt = $snowboarder->getAccountTokenAt();
+        $token = $request->get('token');
 
         if (null !== $token
             && $snowboarder->getAccountToken() === $token

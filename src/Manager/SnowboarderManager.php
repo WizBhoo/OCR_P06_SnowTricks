@@ -60,12 +60,12 @@ class SnowboarderManager
      * @param Snowboarder $snowboarder
      * @param string      $password
      *
-     * @return void
+     * @return Snowboarder
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function createSnowboarder(Snowboarder $snowboarder, string $password): void
+    public function createSnowboarder(Snowboarder $snowboarder, string $password): Snowboarder
     {
         $snowboarder->setPassword(
             $this->passwordEncoder->encodePassword(
@@ -75,33 +75,21 @@ class SnowboarderManager
         );
 
         $this->snowboarderRepository->create($snowboarder);
-    }
 
-    /**
-     * Find a Snowboarder from his id
-     *
-     * @param int $id
-     *
-     * @return Snowboarder|null
-     */
-    public function findSnowboarder(int $id): ?Snowboarder
-    {
-        return $this->snowboarderRepository->find($id);
+        return $snowboarder;
     }
 
     /**
      * Find a Snowboarder from his username
      *
-     * @param string $username
+     * @param string|null $username
      *
      * @return Snowboarder|null
      */
-    public function findSnowboarderBy(string $username): ?Snowboarder
+    public function findSnowboarderBy(?string $username): ?Snowboarder
     {
         return $this->snowboarderRepository->findOneBy(
-            [
-                'username' => $username,
-            ]
+            ['username' => $username]
         );
     }
 
@@ -146,6 +134,24 @@ class SnowboarderManager
                 $password
             )
         );
+        $snowboarder->eraseCredentials();
+
+        $this->snowboarderRepository->update();
+    }
+
+    /**
+     * Activate Snowboarder's account status in db
+     *
+     * @param Snowboarder $snowboarder
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function activateAccount(Snowboarder $snowboarder): void
+    {
+        $snowboarder->setAccountStatus(true);
         $snowboarder->eraseCredentials();
 
         $this->snowboarderRepository->update();

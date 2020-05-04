@@ -143,6 +143,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             );
         }
 
+        if (true !== $snowboarder->getAccountStatus()) {
+            // fail authentication with a custom error
+            throw new CustomUserMessageAuthenticationException(
+                'Your account is not activated, please check your email.'
+            );
+        }
+
         return $snowboarder;
     }
 
