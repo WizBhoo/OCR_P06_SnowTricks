@@ -57,7 +57,7 @@ class ForgottenPasswordController extends AbstractController
             $url = $this->generateUrl(
                 'app_reset_password',
                 [
-                    'id' => $snowboarder->getId(),
+                    'username' => $snowboarder->getUsername(),
                     'token' => $snowboarder->getAccountToken(),
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL

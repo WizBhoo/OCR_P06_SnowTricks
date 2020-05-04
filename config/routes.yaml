@@ -19,7 +19,7 @@ app_register:
     methods: GET|POST
 
 app_account_activation:
-    path: /account-activation/{id}/{token}
+    path: /account-activation
     controller: App\Controller\AccountController::activation
     methods: GET
 
@@ -29,6 +29,6 @@ app_forgotten_password:
     methods: GET|POST
 
 app_reset_password:
-    path: /reset-password/{id}/{token}
+    path: /reset-password
     controller: App\Controller\ResetPasswordController::resetPassword
     methods: GET|POST

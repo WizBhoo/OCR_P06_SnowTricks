@@ -51,7 +51,7 @@ class RegistrationController extends AbstractController
             $url = $this->generateUrl(
                 'app_account_activation',
                 [
-                    'id' => $snowboarder->getId(),
+                    'username' => $snowboarder->getUsername(),
                     'token' => $snowboarder->getAccountToken(),
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL

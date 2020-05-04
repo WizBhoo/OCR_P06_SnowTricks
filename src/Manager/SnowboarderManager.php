@@ -80,30 +80,16 @@ class SnowboarderManager
     }
 
     /**
-     * Find a Snowboarder from his id
-     *
-     * @param int $id
-     *
-     * @return Snowboarder|null
-     */
-    public function findSnowboarder(int $id): ?Snowboarder
-    {
-        return $this->snowboarderRepository->find($id);
-    }
-
-    /**
      * Find a Snowboarder from his username
      *
-     * @param string $username
+     * @param string|null $username
      *
      * @return Snowboarder|null
      */
-    public function findSnowboarderBy(string $username): ?Snowboarder
+    public function findSnowboarderBy(?string $username): ?Snowboarder
     {
         return $this->snowboarderRepository->findOneBy(
-            [
-                'username' => $username,
-            ]
+            ['username' => $username]
         );
     }
 
@@ -165,7 +151,7 @@ class SnowboarderManager
      */
     public function activateAccount(Snowboarder $snowboarder): void
     {
-        $snowboarder->setAccountStatus('true');
+        $snowboarder->setAccountStatus(true);
         $snowboarder->eraseCredentials();
 
         $this->snowboarderRepository->update();

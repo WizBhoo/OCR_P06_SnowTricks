@@ -10,6 +10,7 @@ use App\Manager\SnowboarderManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -20,8 +21,7 @@ class AccountController extends AbstractController
     /**
      * Activate user account created from the link received by email
      *
-     * @param int                $id
-     * @param string             $token
+     * @param Request            $request
      * @param SnowboarderManager $snowboarderManager
      *
      * @return Response
@@ -29,17 +29,20 @@ class AccountController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function activation(int $id, string $token, SnowboarderManager $snowboarderManager): Response
+    public function activation(Request $request, SnowboarderManager $snowboarderManager): Response
     {
-        $snowboarder = $snowboarderManager->findSnowboarder($id);
+        $username = $request->get('username');
+        $snowboarder = $snowboarderManager
+            ->findSnowboarderBy($username);
 
-        if (!$snowboarder) {
+        if (!$snowboarder || null === $username) {
             $this->addFlash('alert', 'Error, try again.');
 
             return $this->redirectToRoute('app_register');
         }
 
         $passwordResetAt = $snowboarder->getAccountTokenAt();
+        $token = $request->get('token');
 
         if (null !== $token
             && $snowboarder->getAccountToken() === $token
