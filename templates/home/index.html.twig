@@ -6,6 +6,7 @@
 
 {% block content %}
     <section class="main-container">
+        {% include('block_modal/_modal_template.html.twig') %}
         <article class="site-intro">
             <div class="container">
                 <div class="jumbotron">
@@ -34,12 +35,19 @@
                     {% for figure in figures %}
                         <div class="card d-none">
                             {% for image in figure.images %}
-                                <img src="{{ image.path }}" class="card-img-top" alt="Trick Image">
+                                {% if image.primary == true %}
+                                    <img src="{{ image.path }}" class="card-img-top" alt="Trick Image">
+                                {% endif %}
                             {% endfor %}
                             <div class="row card-body align-items-center">
                                 <div class="col-6">
                                     <h4 class="card-title">
-                                        <a href="#">{{ figure.name }}</a>
+                                        <a href="{{ path('app_figure_show', {'slug': figure.slug}) }}"
+                                           class="show-modal"
+                                           data-toggle="modal"
+                                           data-target="#figureModal">
+                                            {{ figure.name }}
+                                        </a>
                                     </h4>
                                 </div>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

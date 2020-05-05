@@ -32,3 +32,8 @@ app_reset_password:
     path: /reset-password
     controller: App\Controller\ResetPasswordController::resetPassword
     methods: GET|POST
+
+app_figure_show:
+    path: /tricks/{slug}
+    controller: App\Controller\FigureController::show
+    methods: GET

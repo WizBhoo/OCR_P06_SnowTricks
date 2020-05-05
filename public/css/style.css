@@ -346,6 +346,52 @@ Site Home CSS rules - Tricks Area
 }
 
 /* ----------------------------------------------------
+Site Home CSS rules - Modal Tricks Area
+----------------------------------------------------- */
+.modal-header {
+  width: 100%;
+  background-image: url("../img/banner/main_banner.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-link {
+  margin-left: auto;
+  padding-right: 20px;
+}
+
+.modal-header .close {
+  margin: -1rem -1rem -1rem 0;
+}
+
+.fig-link {
+  padding: 1.3rem 0 1rem 0;
+  margin: -1rem 0 -1rem auto;
+}
+
+.fig-link a {
+  padding-left: 10px;
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fig-title {
+  width: 100%;
+  margin: auto;
+  padding-top: 15rem;
+  background-color: transparent;
+}
+
+.fig-title h3 {
+  font-weight: 300;
+}
+
+/* ----------------------------------------------------
 Media Queries
 ----------------------------------------------------- */
 
