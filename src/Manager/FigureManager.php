@@ -76,10 +76,11 @@ class FigureManager
     public function createFigure(Figure $figure): void
     {
         $author = $this->security->getUser()->getUsername();
-        $snowboarder = $this->snowboarderManager
-            ->findSnowboarderBy($author);
-        $figure->setSnowboarder($snowboarder);
-        $figure->setCreatedAt(new DateTime());
+        $snowboarder = $this->snowboarderManager->findSnowboarderBy($author);
+        $figure
+            ->setSnowboarder($snowboarder)
+            ->setCreatedAt(new DateTime())
+        ;
 
         $this->figureRepository->create($figure);
     }
