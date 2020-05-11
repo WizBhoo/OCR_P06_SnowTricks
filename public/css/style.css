@@ -383,12 +383,19 @@ Site Home CSS rules - Modal Tricks Area
 .fig-title {
   width: 100%;
   margin: auto;
-  padding-top: 15rem;
+  padding-top: 20rem;
   background-color: transparent;
 }
 
 .fig-title h3 {
   font-weight: 300;
+}
+
+.img,
+.vid {
+  padding-top: 20px;
+  width: 284px;
+  height: 210px;
 }
 
 /* ----------------------------------------------------

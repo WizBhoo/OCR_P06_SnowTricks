@@ -18,11 +18,29 @@
 </div>
 <div class="container modal-body">
     <div class="row">
-        <div class="col-lg-6 col-md-12 fig-img">
-            {% include('block_modal/_modal_fig_img.html.twig') %}
+        <div class="col-md-6 fig-img">
+            <div class="row">
+                {% for image in figure.images %}
+                    <img class="col-lg-6 col-md-12 img d-none" src="{{ image.path }}" alt="Trick Image">
+                {% endfor %}
+            </div>
         </div>
-        <div class="col-lg-6 col-md-12 fig-vid">
-            {% include('block_modal/_modal_fig_vid.html.twig') %}
+        <div class="col-md-6 fig-vid">
+            <div class="row">
+                {% for video in figure.videos %}
+                    <iframe class="col-lg-6 col-md-12 vid d-none"
+                            frameborder="0"
+                            src="{{ video.url }}"
+                            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-4 text-center">
+            <button type="button" id="load-media" class="btn btn-light">Voir Media</button>
         </div>
     </div>
     <div class="row">
@@ -52,3 +70,7 @@
 <div class="container modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 </div>
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/load-media.js') }}"></script>
+{% endblock %}

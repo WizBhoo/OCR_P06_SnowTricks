@@ -10,11 +10,15 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entity Class Figure
  *
  * @ORM\Entity(repositoryClass="App\Repository\FigureRepository")
+ * @UniqueEntity(fields={"name"}, message="This Figure already exists", groups={"new"})
  */
 class Figure
 {
@@ -46,6 +50,7 @@ class Figure
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=50)
      */
     private $slug;
@@ -54,6 +59,16 @@ class Figure
      * @var string
      *
      * @ORM\Column(type="string", length=50, unique=true)
+     *
+     * @Assert\NotBlank(message="You must add a name", groups={"new"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=50,
+     *     minMessage="The name should contain at least {{ limit }} characters",
+     *     maxMessage="The name should not contain more than {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"new"}
+     * )
      */
     private $name;
 
@@ -61,13 +76,21 @@ class Figure
      * @var string
      *
      * @ORM\Column(type="text")
+     *
+     * @Assert\NotBlank(message="You must add a description", groups={"new"})
+     * @Assert\Length(
+     *     min=10,
+     *     minMessage="The description should contain at least {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"new"}
+     * )
      */
     private $description;
 
     /**
      * @var DateTimeInterface
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt;
 
@@ -81,21 +104,21 @@ class Figure
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure", cascade={"persist"})
      */
     private $comments;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figure", cascade={"persist"})
      */
     private $images;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figure", cascade={"persist"})
      */
     private $videos;
 

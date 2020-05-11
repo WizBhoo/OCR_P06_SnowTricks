@@ -8,6 +8,8 @@ namespace App\Repository;
 
 use App\Entity\Figure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,5 +30,21 @@ class FigureRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Figure::class);
+    }
+
+    /**
+     * Persists new Figure in db
+     *
+     * @param Figure $figure
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function create(Figure $figure): void
+    {
+        $this->_em->persist($figure);
+        $this->_em->flush();
     }
 }

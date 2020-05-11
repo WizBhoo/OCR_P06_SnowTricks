@@ -37,3 +37,8 @@ app_figure_show:
     path: /tricks/{slug}
     controller: App\Controller\FigureController::show
     methods: GET
+
+app_figure_new:
+    path: /trick/new
+    controller: App\Controller\FigureController::new
+    methods: GET|POST

@@ -8,6 +8,10 @@ namespace App\Manager;
 
 use App\Entity\Figure;
 use App\Repository\FigureRepository;
+use DateTime;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class FigureManager.
@@ -22,13 +26,31 @@ class FigureManager
     private $figureRepository;
 
     /**
+     * A Security service instance
+     *
+     * @var Security
+     */
+    private $security;
+
+    /**
+     * A SnowboarderManager Instance
+     *
+     * @var SnowboarderManager
+     */
+    private $snowboarderManager;
+
+    /**
      * FigureManager constructor.
      *
-     * @param FigureRepository $figureRepository
+     * @param FigureRepository   $figureRepository
+     * @param SnowboarderManager $snowboarderManager
+     * @param Security           $security
      */
-    public function __construct(FigureRepository $figureRepository)
+    public function __construct(FigureRepository $figureRepository, SnowboarderManager $snowboarderManager, Security $security)
     {
         $this->figureRepository = $figureRepository;
+        $this->snowboarderManager = $snowboarderManager;
+        $this->security = $security;
     }
 
     /**
@@ -39,5 +61,26 @@ class FigureManager
     public function findAllFigure(): array
     {
         return $this->figureRepository->findAll();
+    }
+
+    /**
+     * Create a new Figure in db
+     *
+     * @param Figure $figure
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function createFigure(Figure $figure): void
+    {
+        $author = $this->security->getUser()->getUsername();
+        $snowboarder = $this->snowboarderManager
+            ->findSnowboarderBy($author);
+        $figure->setSnowboarder($snowboarder);
+        $figure->setCreatedAt(new DateTime());
+
+        $this->figureRepository->create($figure);
     }
 }
