@@ -26,18 +26,18 @@ class FigureManager
     private $figureRepository;
 
     /**
-     * A Security service instance
-     *
-     * @var Security
-     */
-    private $security;
-
-    /**
      * A SnowboarderManager Instance
      *
      * @var SnowboarderManager
      */
     private $snowboarderManager;
+
+    /**
+     * A Security service instance
+     *
+     * @var Security
+     */
+    private $security;
 
     /**
      * FigureManager constructor.

@@ -30,7 +30,9 @@ class VideoFormType extends AbstractType
         $builder->add(
             'url',
             UrlType::class,
-            ['help' => 'Ex: https://www.youtube.com/embed/xxxxxx']
+            [
+                'help' => 'Format: https://www.youtube.com/embed/(votre id video)',
+            ]
         );
     }
 

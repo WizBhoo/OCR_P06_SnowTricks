@@ -6,7 +6,7 @@
         <div class="col-lg-6">
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
-                    <span>{{ form_row(image.path) }}</span>
+                    <span>{{ form_row(image.file) }}</span>
                     <span>{{ form_row(image.primary) }}</span>
                 {% endfor %}
             </div>

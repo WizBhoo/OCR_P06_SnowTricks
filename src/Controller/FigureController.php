@@ -9,6 +9,8 @@ namespace App\Controller;
 use App\Entity\Figure;
 use App\Form\FigureFormType;
 use App\Manager\FigureManager;
+use App\Service\FileUploader;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,18 +42,30 @@ class FigureController extends AbstractController
      *
      * @param Request       $request
      * @param FigureManager $figureManager
+     * @param FileUploader  $fileUploader
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function new(Request $request, FigureManager $figureManager): Response
+    public function new(Request $request, FigureManager $figureManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ArrayCollection $imageForms */
+            $imageForms = $form->get('images')->all();
+            if ($imageForms) {
+                foreach ($imageForms as $imageForm) {
+                    $file = $imageForm->get('file')->getData();
+                    $fileName = $fileUploader->upload($request, $file);
+                    $image = $form->get('images')->getData();
+                    $image[0]->setPath($fileName);
+                }
+            }
+
             $figureManager->createFigure(
                 $form->getData()
             );
