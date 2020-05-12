@@ -86,6 +86,28 @@ class FigureManager
     }
 
     /**
+     * Update a Figure in db
+     *
+     * @param Figure $figure
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function updateFigure(Figure $figure): void
+    {
+        $author = $this->security->getUser()->getUsername();
+        $snowboarder = $this->snowboarderManager->findSnowboarderBy($author);
+        $figure
+            ->setSnowboarder($snowboarder)
+            ->setUpdatedAt(new DateTime())
+        ;
+
+        $this->figureRepository->update($figure);
+    }
+
+    /**
      * Delete a Figure in db
      *
      * @param Figure $figure

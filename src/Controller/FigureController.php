@@ -16,6 +16,7 @@ use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class FigureController.
@@ -49,7 +50,7 @@ class FigureController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function new(Request $request, FigureManager $figureManager, FileUploader $fileUploader): Response
+    public function create(Request $request, FigureManager $figureManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
@@ -81,6 +82,53 @@ class FigureController extends AbstractController
         return $this->render(
             'figure/_new.html.twig',
             ['figureForm' => $form->createView()]
+        );
+    }
+
+    /**
+     * Update a Figure with associated images and videos
+     *
+     * @param Request       $request
+     * @param Figure        $figure
+     * @param FigureManager $figureManager
+     * @param FileUploader  $fileUploader
+     *
+     * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(Request $request, Figure $figure, FigureManager $figureManager, FileUploader $fileUploader): Response
+    {
+        $form = $this->createForm(
+            FigureFormType::class,
+            $figure,
+            [
+                'action' => $this->generateUrl(
+                    'app_figure_update',
+                    ['slug' => $figure->getSlug()]
+                )
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $figureManager->updateFigure($figure);
+
+            $this->addFlash(
+                'success',
+                'Trick successfully updated !'
+            );
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render(
+            'figure/_update.html.twig',
+            [
+                'figure' => $figure,
+                'figureForm' => $form->createView(),
+            ]
         );
     }
 

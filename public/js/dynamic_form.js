@@ -1,5 +1,5 @@
-let $addImgButton = $("<button type='button' class='add_link btn btn-light text-center'>Ajouter une image</button>");
-let $addVidButton = $("<button type='button' class='add_link btn btn-light text-center'>Ajouter une vidéo</button>");
+let $addImgButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une image</button>");
+let $addVidButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une vidéo</button>");
 let $newLinkImg = $("<span></span>").append($addImgButton);
 let $newLinkVid = $("<span></span>").append($addVidButton);
 
@@ -59,7 +59,7 @@ $(document).ready(function() {
     }
 
     function addImgFormDeleteLink($imgFormSpan) {
-        let $removeFormButton = $("<button type='button'>Supprimer Image</button>");
+        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Image</button>");
         $imgFormSpan.append($removeFormButton);
 
         $removeFormButton.on("click", function(e) {
@@ -83,7 +83,7 @@ $(document).ready(function() {
     }
 
     function addVidFormDeleteLink($vidFormSpan) {
-        let $removeFormButton = $("<button type='button'>Supprimer Vidéo</button>");
+        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Vidéo</button>");
         $vidFormSpan.append($removeFormButton);
 
         $removeFormButton.on("click", function(e) {

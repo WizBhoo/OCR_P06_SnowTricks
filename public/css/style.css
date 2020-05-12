@@ -280,8 +280,13 @@ Site Home CSS rules - Tricks Area
   color: rgba(0, 0, 0, 0.5);
 }
 
-.site-gallery .card-body .card-link {
-  margin-left: 25px;
+.delete-form {
+  display: inline;
+}
+
+#edit,
+#delete {
+  margin-left: 5px;
   color: #000;
   border: none;
   background-color: transparent;
@@ -293,10 +298,6 @@ Site Home CSS rules - Tricks Area
 
 #delete:hover {
   color: #dc3545;
-}
-
-.site-gallery .card-body .card-link + .card-link {
-  margin-left: 20px;
 }
 
 #scroll-up span {
