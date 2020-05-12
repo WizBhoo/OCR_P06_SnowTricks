@@ -84,4 +84,19 @@ class FigureManager
 
         $this->figureRepository->create($figure);
     }
+
+    /**
+     * Delete a Figure in db
+     *
+     * @param Figure $figure
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function deleteFigure(Figure $figure): void
+    {
+        $this->figureRepository->delete($figure);
+    }
 }

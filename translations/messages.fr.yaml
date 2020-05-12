@@ -18,3 +18,5 @@
 'Your account has been successfully activated !': 'Votre compte a été activé avec succès !'
 'Token Invalid, try again.': 'Token expiré, veuillez réessayer.'
 'New Tricks successfully added !': 'Le Tricks a été ajouté avec succès !'
+'Trick successfully deleted !': 'Le Trick a bien été supprimé !'
+'Are you sure you want to delete this item ?': 'Etes-vous sure de vouloir surpprimer ce Trick ?'

@@ -83,4 +83,30 @@ class FigureController extends AbstractController
             ['figureForm' => $form->createView()]
         );
     }
+
+    /**
+     * Delete a figure
+     *
+     * @param Request       $request
+     * @param Figure        $figure
+     * @param FigureManager $figureManager
+     *
+     * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Request $request, Figure $figure, FigureManager $figureManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$figure->getId(), $request->request->get('_token'))) {
+            $figureManager->deleteFigure($figure);
+        }
+
+        $this->addFlash(
+            'success',
+            'Trick successfully deleted !'
+        );
+
+        return $this->redirectToRoute('index');
+    }
 }

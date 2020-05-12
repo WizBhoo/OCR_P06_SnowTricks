@@ -8,6 +8,13 @@ $(document).ready(function() {
     let $collectionHolderImg = $("div.images-form");
     let $collectionHolderVid = $("div.videos-form");
 
+    $collectionHolderImg.find("span").each(function() {
+        addImgFormDeleteLink($(this));
+    })
+    $collectionHolderVid.find("span").each(function() {
+        addVidFormDeleteLink($(this));
+    })
+
     // add the anchor and span to the images and videos div
     $collectionHolderImg.append($newLinkImg);
     $collectionHolderVid.append($newLinkVid);
@@ -16,6 +23,15 @@ $(document).ready(function() {
     // index when inserting a new item (e.g. 2)
     $collectionHolderImg.data("index", $collectionHolderImg.find("input").length);
     $collectionHolderVid.data("index", $collectionHolderVid.find("input").length);
+
+    $addImgButton.on("click", function(e) {
+        // add a new image form (see previous code block)
+        addImgForm($collectionHolderImg, $newLinkImg);
+    });
+
+    $addVidButton.on("click", function(e) {
+        addVidForm($collectionHolderVid, $newLinkVid);
+    });
 
     function addImgForm($collectionHolderImg, $newLink) {
         let prototype = $collectionHolderImg.data("prototype");
@@ -38,12 +54,18 @@ $(document).ready(function() {
         // Display the form in the page in a span, before the "Add an image" link span
         let $newFormSpan = $("<span></span>").append(newForm);
         $newLink.before($newFormSpan);
+
+        addImgFormDeleteLink($newFormSpan);
     }
 
-    $addImgButton.on("click", function(e) {
-        // add a new image form (see previous code block)
-        addImgForm($collectionHolderImg, $newLinkImg);
-    });
+    function addImgFormDeleteLink($imgFormSpan) {
+        let $removeFormButton = $("<button type='button'>Supprimer Image</button>");
+        $imgFormSpan.append($removeFormButton);
+
+        $removeFormButton.on("click", function(e) {
+            $imgFormSpan.remove();
+        });
+    }
 
     // Same for videos
     function addVidForm($collectionHolderVid, $newLink) {
@@ -55,11 +77,17 @@ $(document).ready(function() {
         $collectionHolderVid.data("index", index + 1);
 
         let $newFormSpan = $("<span></span>").append(newForm);
-
         $newLink.before($newFormSpan);
+
+        addVidFormDeleteLink($newFormSpan);
     }
 
-    $addVidButton.on("click", function(e) {
-        addVidForm($collectionHolderVid, $newLinkVid);
-    });
+    function addVidFormDeleteLink($vidFormSpan) {
+        let $removeFormButton = $("<button type='button'>Supprimer Vidéo</button>");
+        $vidFormSpan.append($removeFormButton);
+
+        $removeFormButton.on("click", function(e) {
+            $vidFormSpan.remove();
+        });
+    }
 });

@@ -42,3 +42,7 @@ app_figure_new:
     path: /trick/new
     controller: App\Controller\FigureController::new
     methods: GET|POST
+
+app_figure_delete:
+    path: /trick/{slug}
+    controller: App\Controller\FigureController::delete

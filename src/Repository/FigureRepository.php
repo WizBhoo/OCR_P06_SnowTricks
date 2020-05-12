@@ -47,4 +47,20 @@ class FigureRepository extends ServiceEntityRepository
         $this->_em->persist($figure);
         $this->_em->flush();
     }
+
+    /**
+     * Remove Figure in db
+     *
+     * @param Figure $figure
+     *
+     * @return void
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Figure $figure): void
+    {
+        $this->_em->remove($figure);
+        $this->_em->flush();
+    }
 }

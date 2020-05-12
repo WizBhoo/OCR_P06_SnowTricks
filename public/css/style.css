@@ -281,8 +281,10 @@ Site Home CSS rules - Tricks Area
 }
 
 .site-gallery .card-body .card-link {
-  margin-left: 40px;
+  margin-left: 25px;
   color: #000;
+  border: none;
+  background-color: transparent;
 }
 
 #edit:hover {
