@@ -6,8 +6,10 @@
         <div class="col-lg-6">
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
-                    <span>{{ form_row(image.file) }}</span>
-                    <span>{{ form_row(image.primary) }}</span>
+                    <div class="img-form">
+                        <span>{{ form_row(image.file) }}</span>
+                        <span>{{ form_row(image.primary) }}</span>
+                    </div>
                 {% endfor %}
             </div>
         </div>
@@ -19,7 +21,9 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    <div class="text-center">
+        <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(figureForm) }}
 
 {% block javascripts %}

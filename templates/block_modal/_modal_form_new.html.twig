@@ -19,7 +19,9 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    <div class="text-center">
+        <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(figureForm) }}
 
 {% block javascripts %}

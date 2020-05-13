@@ -9,7 +9,7 @@ $(document).ready(function() {
     let $collectionHolderVid = $("div.videos-form");
 
     function addImgFormDeleteLink($imgFormSpan) {
-        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Image</button>");
+        let $removeFormButton = $("<div class='text-right'><button type='button' class='btn btn-warning mb-3'>Supprimer Image</button></div>");
         $imgFormSpan.append($removeFormButton);
 
         $removeFormButton.on("click", function(e) {
@@ -66,7 +66,7 @@ $(document).ready(function() {
         addVidFormDeleteLink($newFormSpan);
     }
 
-    $collectionHolderImg.find("span").each(function() {
+    $collectionHolderImg.find(".img-form").each(function() {
         addImgFormDeleteLink($(this));
     });
     $collectionHolderVid.find("span").each(function() {
