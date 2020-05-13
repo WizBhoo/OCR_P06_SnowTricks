@@ -61,8 +61,8 @@ class FigureController extends AbstractController
                 foreach ($imageForms as $imageForm) {
                     $file = $imageForm->get('file')->getData();
                     $fileName = $fileUploader->upload($request, $file);
-                    $image = $form->get('images')->getData();
-                    $image[0]->setPath($fileName);
+                    $image = $imageForm->getData();
+                    $image->setPath($fileName);
                 }
             }
 
