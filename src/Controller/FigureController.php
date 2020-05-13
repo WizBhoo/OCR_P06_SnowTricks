@@ -9,14 +9,13 @@ namespace App\Controller;
 use App\Entity\Figure;
 use App\Form\FigureFormType;
 use App\Manager\FigureManager;
-use App\Service\FileUploader;
+use App\Manager\UploadManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class FigureController.
@@ -43,30 +42,20 @@ class FigureController extends AbstractController
      *
      * @param Request       $request
      * @param FigureManager $figureManager
-     * @param FileUploader  $fileUploader
+     * @param UploadManager $uploadManager
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function create(Request $request, FigureManager $figureManager, FileUploader $fileUploader): Response
+    public function create(Request $request, FigureManager $figureManager, UploadManager $uploadManager): Response
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ArrayCollection $imageForms */
-            $imageForms = $form->get('images')->all();
-            if ($imageForms) {
-                foreach ($imageForms as $imageForm) {
-                    $file = $imageForm->get('file')->getData();
-                    $fileName = $fileUploader->upload($request, $file);
-                    $image = $imageForm->getData();
-                    $image->setPath($fileName);
-                }
-            }
-
+            $uploadManager->uploadImage($request, $form);
             $figureManager->createFigure(
                 $form->getData()
             );
@@ -89,31 +78,47 @@ class FigureController extends AbstractController
      * Update a Figure with associated images and videos
      *
      * @param Request       $request
-     * @param Figure        $figure
+     * @param string        $slug
      * @param FigureManager $figureManager
-     * @param FileUploader  $fileUploader
+     * @param UploadManager $uploadManager
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function update(Request $request, Figure $figure, FigureManager $figureManager, FileUploader $fileUploader): Response
+    public function update(Request $request, string $slug, FigureManager $figureManager, UploadManager $uploadManager): Response
     {
+        if (null === $figure = $figureManager->findFigureBy($slug)) {
+            $this->addFlash('error', 'No figure found for slug '.$slug);
+
+            return $this->redirectToRoute('index');
+        }
+
+        $originalImages = new ArrayCollection();
+        foreach ($figure->getImages() as $image) {
+            $originalImages->add($image);
+        }
+        $originalVideos = new ArrayCollection();
+        foreach ($figure->getVideos() as $video) {
+            $originalVideos->add($video);
+        }
+
         $form = $this->createForm(
             FigureFormType::class,
             $figure,
             [
                 'action' => $this->generateUrl(
                     'app_figure_update',
-                    ['slug' => $figure->getSlug()]
+                    ['slug' => $slug]
                 )
             ]
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $figureManager->updateFigure($figure);
+            $uploadManager->uploadImage($request, $form);
+            $figureManager->updateFigure($figure, $originalImages, $originalVideos);
 
             $this->addFlash(
                 'success',

@@ -8,30 +8,14 @@ $(document).ready(function() {
     let $collectionHolderImg = $("div.images-form");
     let $collectionHolderVid = $("div.videos-form");
 
-    $collectionHolderImg.find("span").each(function() {
-        addImgFormDeleteLink($(this));
-    })
-    $collectionHolderVid.find("span").each(function() {
-        addVidFormDeleteLink($(this));
-    })
+    function addImgFormDeleteLink($imgFormSpan) {
+        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Image</button>");
+        $imgFormSpan.append($removeFormButton);
 
-    // add the anchor and span to the images and videos div
-    $collectionHolderImg.append($newLinkImg);
-    $collectionHolderVid.append($newLinkVid);
-
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolderImg.data("index", $collectionHolderImg.find("input").length);
-    $collectionHolderVid.data("index", $collectionHolderVid.find("input").length);
-
-    $addImgButton.on("click", function(e) {
-        // add a new image form (see previous code block)
-        addImgForm($collectionHolderImg, $newLinkImg);
-    });
-
-    $addVidButton.on("click", function(e) {
-        addVidForm($collectionHolderVid, $newLinkVid);
-    });
+        $removeFormButton.on("click", function(e) {
+            $imgFormSpan.remove();
+        });
+    }
 
     function addImgForm($collectionHolderImg, $newLink) {
         let prototype = $collectionHolderImg.data("prototype");
@@ -58,12 +42,12 @@ $(document).ready(function() {
         addImgFormDeleteLink($newFormSpan);
     }
 
-    function addImgFormDeleteLink($imgFormSpan) {
-        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Image</button>");
-        $imgFormSpan.append($removeFormButton);
+    function addVidFormDeleteLink($vidFormSpan) {
+        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Vidéo</button>");
+        $vidFormSpan.append($removeFormButton);
 
         $removeFormButton.on("click", function(e) {
-            $imgFormSpan.remove();
+            $vidFormSpan.remove();
         });
     }
 
@@ -82,12 +66,28 @@ $(document).ready(function() {
         addVidFormDeleteLink($newFormSpan);
     }
 
-    function addVidFormDeleteLink($vidFormSpan) {
-        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Vidéo</button>");
-        $vidFormSpan.append($removeFormButton);
+    $collectionHolderImg.find("span").each(function() {
+        addImgFormDeleteLink($(this));
+    });
+    $collectionHolderVid.find("span").each(function() {
+        addVidFormDeleteLink($(this));
+    });
 
-        $removeFormButton.on("click", function(e) {
-            $vidFormSpan.remove();
-        });
-    }
+    // add the anchor and span to the images and videos div
+    $collectionHolderImg.append($newLinkImg);
+    $collectionHolderVid.append($newLinkVid);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolderImg.data("index", $collectionHolderImg.find("input").length);
+    $collectionHolderVid.data("index", $collectionHolderVid.find("input").length);
+
+    $addImgButton.on("click", function(e) {
+        // add a new image form (see previous code block)
+        addImgForm($collectionHolderImg, $newLinkImg);
+    });
+
+    $addVidButton.on("click", function(e) {
+        addVidForm($collectionHolderVid, $newLinkVid);
+    });
 });

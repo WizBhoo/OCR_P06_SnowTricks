@@ -9,6 +9,7 @@ namespace App\Manager;
 use App\Entity\Figure;
 use App\Repository\FigureRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Security;
@@ -24,6 +25,20 @@ class FigureManager
      * @var FigureRepository
      */
     private $figureRepository;
+
+    /**
+     * An ImageManager Instance
+     *
+     * @var ImageManager
+     */
+    private $imageManager;
+
+    /**
+     * A VideoManager Instance
+     *
+     * @var VideoManager
+     */
+    private $videoManager;
 
     /**
      * A SnowboarderManager Instance
@@ -43,12 +58,16 @@ class FigureManager
      * FigureManager constructor.
      *
      * @param FigureRepository   $figureRepository
+     * @param ImageManager       $imageManager
+     * @param VideoManager       $videoManager
      * @param SnowboarderManager $snowboarderManager
      * @param Security           $security
      */
-    public function __construct(FigureRepository $figureRepository, SnowboarderManager $snowboarderManager, Security $security)
+    public function __construct(FigureRepository $figureRepository, ImageManager $imageManager, VideoManager $videoManager, SnowboarderManager $snowboarderManager, Security $security)
     {
         $this->figureRepository = $figureRepository;
+        $this->imageManager = $imageManager;
+        $this->videoManager = $videoManager;
         $this->snowboarderManager = $snowboarderManager;
         $this->security = $security;
     }
@@ -61,6 +80,20 @@ class FigureManager
     public function findAllFigure(): array
     {
         return $this->figureRepository->findAll();
+    }
+
+    /**
+     * Find a Figure from his slug
+     *
+     * @param string|null $slug
+     *
+     * @return Figure|null
+     */
+    public function findFigureBy(?string $slug): ?Figure
+    {
+        return $this->figureRepository->findOneBy(
+            ['slug' => $slug]
+        );
     }
 
     /**
@@ -88,15 +121,20 @@ class FigureManager
     /**
      * Update a Figure in db
      *
-     * @param Figure $figure
+     * @param Figure          $figure
+     * @param ArrayCollection $originalImages
+     * @param ArrayCollection $originalVideos
      *
      * @return void
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function updateFigure(Figure $figure): void
+    public function updateFigure(Figure $figure, ArrayCollection $originalImages, ArrayCollection $originalVideos): void
     {
+        $this->imageManager->deleteImage($figure, $originalImages);
+        $this->videoManager->deleteVideo($figure, $originalVideos);
+
         $author = $this->security->getUser()->getUsername();
         $snowboarder = $this->snowboarderManager->findSnowboarderBy($author);
         $figure
