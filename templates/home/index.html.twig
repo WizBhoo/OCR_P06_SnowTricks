@@ -39,7 +39,7 @@
                                     <img src="{{ image.path }}" class="card-img-top" alt="Trick Image">
                                 {% endif %}
                             {% endfor %}
-                            <div class="row card-body align-items-center">
+                            <div class="row card-body">
                                 <div class="col-6">
                                     <h4 class="card-title">
                                         <a href="{{ path('app_figure_show', {'slug': figure.slug}) }}"
@@ -51,9 +51,15 @@
                                     </h4>
                                 </div>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <div class="col-6">
-                                    <a href="#" id="edit" class="card-link"><i class="fas fa-pencil-alt"></i></a>
-                                    <a href="#" id="delete" class="card-link"><i class="fas fa-trash-alt"></i></a>
+                                <div class="col-6 text-right">
+                                    <a id="edit"
+                                       href="{{ path('app_figure_update', {'slug': figure.slug}) }}"
+                                       class="card-link update-modal"
+                                       data-toggle="modal"
+                                       data-target="#figureModal">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    {{ include('figure/_delete.html.twig') }}
                                 </div>
                                 {% endif %}
                             </div>

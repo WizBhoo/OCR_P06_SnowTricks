@@ -104,21 +104,21 @@ class Figure
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="figure", cascade={"persist", "remove"})
      */
     private $comments;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="figure", cascade={"persist", "remove"})
      */
     private $images;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="figure", cascade={"persist", "remove"})
      */
     private $videos;
 

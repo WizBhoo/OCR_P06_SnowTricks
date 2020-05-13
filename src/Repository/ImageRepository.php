@@ -8,6 +8,8 @@ namespace App\Repository;
 
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,5 +30,19 @@ class ImageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Image::class);
+    }
+
+    /**
+     * Remove an Image in db
+     *
+     * @param Image $image
+     *
+     * @return void
+     *
+     * @throws ORMException
+     */
+    public function delete(Image $image): void
+    {
+        $this->_em->remove($image);
     }
 }

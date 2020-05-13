@@ -81,6 +81,8 @@ class SnowboarderRepository extends ServiceEntityRepository implements PasswordU
     /**
      * Update a Snowboarder in db
      *
+     * @return void
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
