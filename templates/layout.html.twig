@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="{{ path('index') }}">
             <img src="{{ asset('img/logo.png') }}" alt="SnowTricks logo">
         </a>
-        {% for messages in app.flashes(['success', 'notice']) %}
+        {% for messages in app.flashes(['success', 'notice', 'error']) %}
             {% for message in messages %}
                 <div class="flash-notice text-center">
                     {{ message|trans(messages, 'messages') }}
@@ -30,7 +30,12 @@
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ajouter un Tricks</a>
+                        <a class="nav-link new-modal"
+                           href="{{ path('app_figure_create') }}"
+                           data-toggle="modal"
+                           data-target="#figureModal">
+                            Ajouter un Tricks
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>

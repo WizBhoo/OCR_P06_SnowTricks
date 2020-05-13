@@ -1,0 +1,27 @@
+{{ form_start(figureForm, {'attr': {'action': 'trick/new'}}) }}
+    {{ form_row(figureForm.name) }}
+    {{ form_row(figureForm.description) }}
+    {{ form_row(figureForm.category) }}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
+                {% for image in figureForm.images %}
+                    <span>{{ form_row(image.file) }}</span>
+                    <span>{{ form_row(image.primary) }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="videos-form" data-prototype="{{ form_widget(figureForm.videos.vars.prototype)|e('html_attr') }}">
+                {% for video in figureForm.videos %}
+                    <span>{{ form_row(video.url) }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(figureForm) }}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
+{% endblock %}

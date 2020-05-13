@@ -35,7 +35,7 @@ class Image
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", name="is_primary")
+     * @ORM\Column(type="boolean", name="is_primary", options={"default"=false})
      */
     private $primary;
 
