@@ -159,4 +159,38 @@ class FigureManager
     {
         $this->figureRepository->delete($figure);
     }
+
+    /**
+     * Get Images from Figure
+     *
+     * @param Figure $figure
+     *
+     * @return ArrayCollection
+     */
+    public function getOriginalImages(Figure $figure): ArrayCollection
+    {
+        $originalImages = new ArrayCollection();
+        foreach ($figure->getImages() as $image) {
+            $originalImages->add($image);
+        }
+
+        return $originalImages;
+    }
+
+    /**
+     * Get Videos from Figure
+     *
+     * @param Figure $figure
+     *
+     * @return ArrayCollection
+     */
+    public function getOriginalVideos(Figure $figure): ArrayCollection
+    {
+        $originalVideos = new ArrayCollection();
+        foreach ($figure->getVideos() as $video) {
+            $originalVideos->add($video);
+        }
+
+        return $originalVideos;
+    }
 }

@@ -40,11 +40,9 @@ class ImageRepository extends ServiceEntityRepository
      * @return void
      *
      * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(Image $image): void
     {
         $this->_em->remove($image);
-        $this->_em->flush();
     }
 }

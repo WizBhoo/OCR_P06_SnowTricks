@@ -9,7 +9,6 @@ namespace App\Manager;
 use App\Entity\Figure;
 use App\Repository\ImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
 /**
@@ -43,7 +42,6 @@ class ImageManager
      * @return void
      *
      * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function deleteImage(Figure $figure, ArrayCollection $originalImages): void
     {

@@ -10,7 +10,6 @@ use App\Entity\Figure;
 use App\Form\FigureFormType;
 use App\Manager\FigureManager;
 use App\Manager\UploadManager;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,14 +94,8 @@ class FigureController extends AbstractController
             return $this->redirectToRoute('index');
         }
 
-        $originalImages = new ArrayCollection();
-        foreach ($figure->getImages() as $image) {
-            $originalImages->add($image);
-        }
-        $originalVideos = new ArrayCollection();
-        foreach ($figure->getVideos() as $video) {
-            $originalVideos->add($video);
-        }
+        $originalImages = $figureManager->getOriginalImages($figure);
+        $originalVideos = $figureManager->getOriginalVideos($figure);
 
         $form = $this->createForm(
             FigureFormType::class,

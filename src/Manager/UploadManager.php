@@ -9,6 +9,7 @@ namespace App\Manager;
 use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -48,9 +49,11 @@ class UploadManager
         if ($imageForms) {
             foreach ($imageForms as $imageForm) {
                 $file = $imageForm->get('file')->getData();
-                $fileName = $this->fileUploader->upload($request, $file);
-                $image = $imageForm->getData();
-                $image->setPath($fileName);
+                if ($file instanceof UploadedFile) {
+                    $fileName = $this->fileUploader->upload($request, $file);
+                    $image = $imageForm->getData();
+                    $image->setPath($fileName);
+                }
             }
         }
     }

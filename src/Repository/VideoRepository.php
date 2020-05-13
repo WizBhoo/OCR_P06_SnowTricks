@@ -40,11 +40,9 @@ class VideoRepository extends ServiceEntityRepository
      * @return void
      *
      * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(Video $video): void
     {
         $this->_em->remove($video);
-        $this->_em->flush();
     }
 }
