@@ -38,7 +38,16 @@ app_figure_show:
     controller: App\Controller\FigureController::show
     methods: GET
 
-app_figure_new:
+app_figure_create:
     path: /trick/new
-    controller: App\Controller\FigureController::new
+    controller: App\Controller\FigureController::create
     methods: GET|POST
+
+app_figure_update:
+    path: /trick/update/{slug}
+    controller: App\Controller\FigureController::update
+    methods: GET|POST
+
+app_figure_delete:
+    path: /trick/delete/{slug}
+    controller: App\Controller\FigureController::delete

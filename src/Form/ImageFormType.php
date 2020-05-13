@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 /**
  * Class ImageFormType.
@@ -29,7 +30,29 @@ class ImageFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('path', FileType::class)
+            ->add(
+                'file',
+                FileType::class,
+                [
+                    'label' => 'File (JPG or PNG)',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new File(
+                            [
+                                'maxSize' => '1024M',
+                                'mimeTypes' =>
+                                    [
+                                        'image/jpg',
+                                        'image/jpeg',
+                                        'image/png',
+                                    ],
+                                'mimeTypesMessage' => 'Please upload a valid file',
+                            ]
+                        )
+                    ],
+                ]
+            )
             ->add(
                 'primary',
                 CheckboxType::class,

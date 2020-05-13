@@ -48,6 +48,7 @@ class FigureFormType extends AbstractType
                 [
                     'entry_type' => ImageFormType::class,
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'by_reference' => false,
                 ]
             )
@@ -57,6 +58,7 @@ class FigureFormType extends AbstractType
                 [
                     'entry_type' => VideoFormType::class,
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'by_reference' => false,
                 ]
             )

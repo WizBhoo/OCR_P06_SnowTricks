@@ -9,6 +9,7 @@ namespace App\Controller;
 use App\Entity\Figure;
 use App\Form\FigureFormType;
 use App\Manager\FigureManager;
+use App\Manager\UploadManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,18 +41,20 @@ class FigureController extends AbstractController
      *
      * @param Request       $request
      * @param FigureManager $figureManager
+     * @param UploadManager $uploadManager
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function new(Request $request, FigureManager $figureManager): Response
+    public function create(Request $request, FigureManager $figureManager, UploadManager $uploadManager): Response
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadManager->uploadImage($request, $form);
             $figureManager->createFigure(
                 $form->getData()
             );
@@ -68,5 +71,88 @@ class FigureController extends AbstractController
             'figure/_new.html.twig',
             ['figureForm' => $form->createView()]
         );
+    }
+
+    /**
+     * Update a Figure with associated images and videos
+     *
+     * @param Request       $request
+     * @param string        $slug
+     * @param FigureManager $figureManager
+     * @param UploadManager $uploadManager
+     *
+     * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(Request $request, string $slug, FigureManager $figureManager, UploadManager $uploadManager): Response
+    {
+        if (null === $figure = $figureManager->findFigureBy($slug)) {
+            $this->addFlash('error', 'No figure found for slug '.$slug);
+
+            return $this->redirectToRoute('index');
+        }
+
+        $originalImages = $figureManager->getOriginalImages($figure);
+        $originalVideos = $figureManager->getOriginalVideos($figure);
+
+        $form = $this->createForm(
+            FigureFormType::class,
+            $figure,
+            [
+                'action' => $this->generateUrl(
+                    'app_figure_update',
+                    ['slug' => $slug]
+                )
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadManager->uploadImage($request, $form);
+            $figureManager->updateFigure($figure, $originalImages, $originalVideos);
+
+            $this->addFlash(
+                'success',
+                'Trick successfully updated !'
+            );
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render(
+            'figure/_update.html.twig',
+            [
+                'figure' => $figure,
+                'figureForm' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * Delete a figure
+     *
+     * @param Request       $request
+     * @param Figure        $figure
+     * @param FigureManager $figureManager
+     *
+     * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Request $request, Figure $figure, FigureManager $figureManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$figure->getId(), $request->request->get('_token'))) {
+            $figureManager->deleteFigure($figure);
+        }
+
+        $this->addFlash(
+            'success',
+            'Trick successfully deleted !'
+        );
+
+        return $this->redirectToRoute('index');
     }
 }
