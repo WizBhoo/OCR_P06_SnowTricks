@@ -31,7 +31,6 @@ $(document).ready(function() {
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__/g, index);
-
         // increase the index with one for the next item
         $collectionHolderImg.data("index", index + 1);
 
@@ -85,6 +84,7 @@ $(document).ready(function() {
     $addImgButton.on("click", function(e) {
         // add a new image form (see previous code block)
         addImgForm($collectionHolderImg, $newLinkImg);
+        $(".form-check-input").attr("onchange", "cbChange(this)");
     });
 
     $addVidButton.on("click", function(e) {

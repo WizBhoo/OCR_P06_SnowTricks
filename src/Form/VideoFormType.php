@@ -31,7 +31,7 @@ class VideoFormType extends AbstractType
             'url',
             UrlType::class,
             [
-                'help' => 'Format: https://www.youtube.com/embed/(votre id video)',
+                'help' => 'Format: https://www.youtube.com/embed/(your video id)',
             ]
         );
     }

@@ -29,3 +29,7 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%uploaded%'
+
+    App\Manager\ImageManager:
+        arguments:
+            $targetDirectory: '%uploaded%'

@@ -4,17 +4,23 @@
     {{ form_row(figureForm.category) }}
     <div class="row">
         <div class="col-lg-6">
+            {{ form_label(figureForm.images) }}
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
-                    <span>{{ form_row(image.file) }}</span>
-                    <span>{{ form_row(image.primary) }}</span>
+                    <span>{{ form_start(figureFormImages) }}</span>
+                        <span>{{ form_row(image.file) }}</span>
+                        <span>{{ form_row(image.primary) }}</span>
+                    <span>{{ form_end(figureFormImages) }}</span>
                 {% endfor %}
             </div>
         </div>
         <div class="col-lg-6">
+            {{ form_label(figureForm.videos) }}
             <div class="videos-form" data-prototype="{{ form_widget(figureForm.videos.vars.prototype)|e('html_attr') }}">
                 {% for video in figureForm.videos %}
-                    <span>{{ form_row(video.url) }}</span>
+                    <span>{{ form_start(figureFormVideos) }}</span>
+                        <span>{{ form_row(video.url) }}</span>
+                    <span>{{ form_end(figureFormVideos) }}</span>
                 {% endfor %}
             </div>
         </div>
@@ -26,4 +32,5 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
 {% endblock %}

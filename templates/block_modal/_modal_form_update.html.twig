@@ -4,6 +4,7 @@
     {{ form_row(figureForm.category) }}
     <div class="row">
         <div class="col-lg-6">
+            {{ form_label(figureForm.images) }}
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
                     <div class="img-form">
@@ -14,6 +15,7 @@
             </div>
         </div>
         <div class="col-lg-6">
+            {{ form_label(figureForm.videos) }}
             <div class="videos-form" data-prototype="{{ form_widget(figureForm.videos.vars.prototype)|e('html_attr') }}">
                 {% for video in figureForm.videos %}
                     <span>{{ form_row(video.url) }}</span>
@@ -28,4 +30,5 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
 {% endblock %}

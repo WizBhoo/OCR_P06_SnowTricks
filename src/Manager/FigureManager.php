@@ -7,6 +7,7 @@
 namespace App\Manager;
 
 use App\Entity\Figure;
+use App\Entity\Image;
 use App\Repository\FigureRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -114,6 +115,7 @@ class FigureManager
             ->setSnowboarder($snowboarder)
             ->setCreatedAt(new DateTime())
         ;
+        $this->imageManager->hasPrimaryImg($figure);
 
         $this->figureRepository->create($figure);
     }
@@ -141,6 +143,7 @@ class FigureManager
             ->setSnowboarder($snowboarder)
             ->setUpdatedAt(new DateTime())
         ;
+        $this->imageManager->hasPrimaryImg($figure);
 
         $this->figureRepository->update($figure);
     }
