@@ -34,7 +34,7 @@ class ImageFormType extends AbstractType
                 'file',
                 FileType::class,
                 [
-                    'label' => 'File (JPG or PNG)',
+                    'help' => 'File (JPG, JPEG or PNG)',
                     'mapped' => false,
                     'required' => false,
                     'constraints' => [

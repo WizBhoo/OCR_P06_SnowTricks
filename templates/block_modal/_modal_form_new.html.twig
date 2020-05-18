@@ -1,4 +1,4 @@
-{{ form_start(figureForm, {'attr': {'action': 'trick/new'}}) }}
+{{ form_start(figureForm, {'attr': {'action': 'trick/new', 'id': 'fig-form'}}) }}
     {{ form_row(figureForm.name) }}
     {{ form_row(figureForm.description) }}
     {{ form_row(figureForm.category) }}
@@ -7,10 +7,10 @@
             {{ form_label(figureForm.images) }}
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
-                    <span>{{ form_start(figureFormImages) }}</span>
+                    <div class="img-form">
                         <span>{{ form_row(image.file) }}</span>
                         <span>{{ form_row(image.primary) }}</span>
-                    <span>{{ form_end(figureFormImages) }}</span>
+                    </div>
                 {% endfor %}
             </div>
         </div>
@@ -18,9 +18,7 @@
             {{ form_label(figureForm.videos) }}
             <div class="videos-form" data-prototype="{{ form_widget(figureForm.videos.vars.prototype)|e('html_attr') }}">
                 {% for video in figureForm.videos %}
-                    <span>{{ form_start(figureFormVideos) }}</span>
-                        <span>{{ form_row(video.url) }}</span>
-                    <span>{{ form_end(figureFormVideos) }}</span>
+                    <span>{{ form_row(video.url) }}</span>
                 {% endfor %}
             </div>
         </div>
@@ -33,4 +31,5 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}

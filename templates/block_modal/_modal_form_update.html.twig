@@ -1,4 +1,4 @@
-{{ form_start(figureForm) }}
+{{ form_start(figureForm, {'attr': {'id': 'fig-form'}}) }}
     {{ form_row(figureForm.name) }}
     {{ form_row(figureForm.description) }}
     {{ form_row(figureForm.category) }}
@@ -31,4 +31,5 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}
