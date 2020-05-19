@@ -8,8 +8,7 @@
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
                     <div class="img-form">
-                        <span>{{ form_row(image.file) }}</span>
-                        <span>{{ form_row(image.primary) }}</span>
+                        <span>{{ form_widget(image) }}</span>
                     </div>
                 {% endfor %}
             </div>
@@ -30,6 +29,4 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}

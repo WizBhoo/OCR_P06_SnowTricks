@@ -76,7 +76,7 @@ class ImageFormType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Image::class,
-                'validation_class' => ['Default'],
+                'validation_class' => ['Default', 'new'],
             ]
         );
     }

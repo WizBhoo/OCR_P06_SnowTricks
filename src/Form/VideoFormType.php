@@ -39,12 +39,12 @@ class VideoFormType extends AbstractType
                 [
                     new NotBlank(),
                     new Url(['message' => 'This url is not valid.']),
-                    /**new Regex(
+                    new Regex(
                         [
-                            'pattern' => '(https?|http):\/\/[a-z0-9\/.]+\/embed\/[a-zA-Z0-9]+',
+                            'pattern' => '^https:\/\/www.youtube.com\/embed\/[a-zA-Z0-9]+^',
                             'message' => 'Please enter a valid url.',
                         ]
-                    ),*/
+                    ),
                 ],
             ]
         );

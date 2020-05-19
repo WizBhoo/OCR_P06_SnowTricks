@@ -13,6 +13,8 @@ use App\Manager\UploadManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,18 +55,23 @@ class FigureController extends AbstractController
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $uploadManager->uploadImage($request, $form);
-            $figureManager->createFigure(
-                $form->getData()
-            );
 
-            $this->addFlash(
-                'success',
-                'New Tricks successfully added !'
-            );
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $uploadManager->uploadImage($request, $form);
+                $figureManager->createFigure(
+                    $form->getData()
+                );
 
-            return $this->redirectToRoute('index');
+                $this->addFlash(
+                    'success',
+                    'New Tricks successfully added !'
+                );
+
+                return new JsonResponse($this->generateUrl('index'));
+            }
+
+            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render(
@@ -109,16 +116,20 @@ class FigureController extends AbstractController
         );
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $uploadManager->uploadImage($request, $form);
-            $figureManager->updateFigure($figure, $originalImages, $originalVideos);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $uploadManager->uploadImage($request, $form);
+                $figureManager->updateFigure($figure, $originalImages, $originalVideos);
 
-            $this->addFlash(
-                'success',
-                'Trick successfully updated !'
-            );
+                $this->addFlash(
+                    'success',
+                    'Trick successfully updated !'
+                );
 
-            return $this->redirectToRoute('index');
+                return new JsonResponse($this->generateUrl('index'));
+            }
+
+            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render(
@@ -154,5 +165,33 @@ class FigureController extends AbstractController
         );
 
         return $this->redirectToRoute('index');
+    }
+
+    /**
+     * Retrieve error messages if exist after form submission
+     *
+     * @param FormInterface $form
+     *
+     * @return array
+     */
+    private function getErrorMessages(FormInterface $form): array
+    {
+        $errors = array();
+
+        foreach ($form->getErrors() as $key => $error) {
+            if ($form->isRoot()) {
+                $errors['#'][] = $error->getMessage();
+            } else {
+                $errors[] = $error->getMessage();
+            }
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+
+        return $errors;
     }
 }

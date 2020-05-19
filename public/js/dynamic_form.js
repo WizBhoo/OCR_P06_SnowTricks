@@ -1,8 +1,3 @@
-let $addImgButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une image</button>");
-let $addVidButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une vidéo</button>");
-let $newLinkImg = $("<span></span>").append($addImgButton);
-let $newLinkVid = $("<span></span>").append($addVidButton);
-
 $(document).ready(function() {
     // Get the div that holds the collection of images and videos
     let $collectionHolderImg = $("div.images-form");
