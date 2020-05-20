@@ -53,9 +53,11 @@ class ImageManager
     public function hasPrimaryImg(Figure $figure): void
     {
         $images = $figure->getImages();
-        $filteredImages = $images->filter(function($image){
-           return $image->isPrimary();
-        });
+        $filteredImages = $images->filter(
+            function ($image) {
+                return $image->isPrimary();
+            }
+        );
 
         if (0 === $filteredImages->count() && !$images->isEmpty()) {
             $images->first()->setPrimary(true);
