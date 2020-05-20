@@ -24,6 +24,8 @@ class SnowboarderFixtures extends Fixture
     private $passwordEncoder;
 
     /**
+     * A prefix reference constant for Snowboarder
+     *
      * @var string
      */
     public const SNOWBOARDER_REFERENCE_PREFIX = 'snowboarder_';
@@ -52,9 +54,14 @@ class SnowboarderFixtures extends Fixture
             $snowboarder
                 ->setLastName('nom '.$i)
                 ->setFirstName('prenom '.$i)
-                ->setUsername('goldfish'.$i)
-                ->setEmail('demo'.$i.'@snowtricks.com')
-                ->setPassword($this->passwordEncoder->encodePassword($snowboarder, 'demo'.$i))
+                ->setUsername('snowboarder'.$i)
+                ->setEmail('snowboarder'.$i.'@snowtricks.com')
+                ->setPassword(
+                    $this->passwordEncoder->encodePassword(
+                        $snowboarder,
+                        'demo'.$i
+                    )
+                )
                 ->setAccountStatus('true')
             ;
             $manager->persist($snowboarder);
