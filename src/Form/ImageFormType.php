@@ -34,7 +34,7 @@ class ImageFormType extends AbstractType
                 'file',
                 FileType::class,
                 [
-                    'label' => 'File (JPG or PNG)',
+                    'help' => 'File (JPG, JPEG or PNG)',
                     'mapped' => false,
                     'required' => false,
                     'constraints' => [
@@ -76,7 +76,7 @@ class ImageFormType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Image::class,
-                'validation_class' => ['Default'],
+                'validation_class' => ['Default', 'new'],
             ]
         );
     }

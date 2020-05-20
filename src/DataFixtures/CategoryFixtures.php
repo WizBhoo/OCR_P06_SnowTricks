@@ -15,6 +15,11 @@ use Doctrine\Persistence\ObjectManager;
  */
 class CategoryFixtures extends Fixture
 {
+    /**
+     * A prefix reference constant for Category
+     *
+     * @var string
+     */
     public const CATEGORY_REFERENCE_PREFIX = 'category_';
 
     /**
@@ -26,12 +31,20 @@ class CategoryFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i < 4; $i++) {
-            $category = new Category();
-            $category->setName('category '.$i);
-            $manager->persist($category);
-            $this->addReference(self::CATEGORY_REFERENCE_PREFIX.$i, $category);
-        }
+        $category = new Category();
+        $category->setName('Grab');
+        $manager->persist($category);
+        $this->addReference(self::CATEGORY_REFERENCE_PREFIX.'1', $category);
+
+        $category = new Category();
+        $category->setName('Flip');
+        $manager->persist($category);
+        $this->addReference(self::CATEGORY_REFERENCE_PREFIX.'2', $category);
+
+        $category = new Category();
+        $category->setName('Rotation');
+        $manager->persist($category);
+        $this->addReference(self::CATEGORY_REFERENCE_PREFIX.'3', $category);
 
         $manager->flush();
     }

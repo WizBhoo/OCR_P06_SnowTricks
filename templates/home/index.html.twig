@@ -34,11 +34,17 @@
                 <div class="col-lg-12">
                     {% for figure in figures %}
                         <div class="card d-none">
-                            {% for image in figure.images %}
-                                {% if image.primary == true %}
-                                    <img src="{{ image.path }}" class="card-img-top" alt="Trick Image">
-                                {% endif %}
-                            {% endfor %}
+                            <div class="img-top container-fluid">
+                            {% if figure.images is empty %}
+                                <img src="{{ asset('img/uploaded/default.jpg')}}" class="card-img-top d-block" alt="Trick Image">
+                            {% else %}
+                                {% for image in figure.images %}
+                                    {% if image.primary == true %}
+                                        <img src="{{ asset('img/uploaded/') }}{{ image.path }}" class="card-img-top d-block" alt="Trick Image">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            </div>
                             <div class="row card-body">
                                 <div class="col-6">
                                     <h4 class="card-title">
@@ -85,5 +91,6 @@
 
     <script type="text/javascript" src="{{ asset('js/scroll.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/load-more.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/modal-display.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}

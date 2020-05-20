@@ -1,4 +1,16 @@
-<div class="container-fluid modal-header fig-banner">
+<div class="container-fluid modal-header fig-banner"
+     style="background-image: url(
+     {% if figure.images is empty %}
+         {{ asset('img/uploaded/default.jpg') }}
+     {% else %}
+         {% for image in figure.images %}
+             {% if image.primary == true %}
+                 {{  asset('img/uploaded/') }}{{ image.path }}
+             {% endif %}
+         {% endfor %}
+     {% endif %}
+     );"
+>
     <div class="row header-link">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

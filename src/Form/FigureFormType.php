@@ -15,6 +15,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class FigureFormType.
@@ -32,8 +34,28 @@ class FigureFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'constraints' =>
+                    [
+                        new NotBlank(),
+                        new Length(['min' => 3, 'max' => 30]),
+                    ],
+                ]
+            )
+            ->add(
+                'description',
+                TextareaType::class,
+                [
+                    'constraints' =>
+                    [
+                        new NotBlank(),
+                        new Length(['min' => 10]),
+                    ],
+                ]
+            )
             ->add(
                 'category',
                 EntityType::class,

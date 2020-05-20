@@ -1,17 +1,20 @@
-{{ form_start(figureForm, {'attr': {'action': 'trick/new'}}) }}
+{{ form_start(figureForm, {'attr': {'action': 'trick/new', 'id': 'fig-form'}}) }}
     {{ form_row(figureForm.name) }}
     {{ form_row(figureForm.description) }}
     {{ form_row(figureForm.category) }}
     <div class="row">
         <div class="col-lg-6">
+            {{ form_label(figureForm.images) }}
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
-                    <span>{{ form_row(image.file) }}</span>
-                    <span>{{ form_row(image.primary) }}</span>
+                    <div class="img-form">
+                        <span>{{ form_widget(image) }}</span>
+                    </div>
                 {% endfor %}
             </div>
         </div>
         <div class="col-lg-6">
+            {{ form_label(figureForm.videos) }}
             <div class="videos-form" data-prototype="{{ form_widget(figureForm.videos.vars.prototype)|e('html_attr') }}">
                 {% for video in figureForm.videos %}
                     <span>{{ form_row(video.url) }}</span>
@@ -19,7 +22,9 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    <div class="text-center">
+        <button class="btn btn-light">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(figureForm) }}
 
 {% block javascripts %}

@@ -1,4 +1,16 @@
-<div class="container-fluid modal-header fig-banner">
+<div class="container-fluid modal-header fig-banner"
+     style="background-image: url(
+     {% if figure.images is empty %}
+         {{ asset('img/uploaded/default.jpg') }}
+     {% else %}
+        {% for image in figure.images %}
+            {% if image.primary == true %}
+                {{  asset('img/uploaded/') }}{{ image.path }}
+            {% endif %}
+        {% endfor %}
+     {% endif %}
+     );"
+>
     <div class="row header-link">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="fig-link">
@@ -27,7 +39,9 @@
         <div class="col-md-6 fig-img">
             <div class="row">
                 {% for image in figure.images %}
-                    <img class="col-lg-6 col-md-12 img d-none" src="{{ image.path }}" alt="Trick Image">
+                    {% if image.primary == false %}
+                        <img class="col-lg-6 col-md-12 img d-none" src="{{ asset('img/uploaded/') }}{{ image.path }}" alt="Trick Image">
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
@@ -79,5 +93,5 @@
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/load-media.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/modal-display.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}

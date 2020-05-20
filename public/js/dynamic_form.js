@@ -1,15 +1,10 @@
-let $addImgButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une image</button>");
-let $addVidButton = $("<button type='button' class='add_link btn btn-dark text-center'>Ajouter une vidéo</button>");
-let $newLinkImg = $("<span></span>").append($addImgButton);
-let $newLinkVid = $("<span></span>").append($addVidButton);
-
 $(document).ready(function() {
     // Get the div that holds the collection of images and videos
     let $collectionHolderImg = $("div.images-form");
     let $collectionHolderVid = $("div.videos-form");
 
     function addImgFormDeleteLink($imgFormSpan) {
-        let $removeFormButton = $("<button type='button' class='btn btn-warning mr-3'>Supprimer Image</button>");
+        let $removeFormButton = $("<div class='text-right'><button type='button' class='btn btn-warning mb-3'>Supprimer Image</button></div>");
         $imgFormSpan.append($removeFormButton);
 
         $removeFormButton.on("click", function(e) {
@@ -31,7 +26,6 @@ $(document).ready(function() {
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__/g, index);
-
         // increase the index with one for the next item
         $collectionHolderImg.data("index", index + 1);
 
@@ -66,7 +60,7 @@ $(document).ready(function() {
         addVidFormDeleteLink($newFormSpan);
     }
 
-    $collectionHolderImg.find("span").each(function() {
+    $collectionHolderImg.find(".img-form").each(function() {
         addImgFormDeleteLink($(this));
     });
     $collectionHolderVid.find("span").each(function() {
@@ -85,6 +79,7 @@ $(document).ready(function() {
     $addImgButton.on("click", function(e) {
         // add a new image form (see previous code block)
         addImgForm($collectionHolderImg, $newLinkImg);
+        $(".form-check-input").attr("onchange", "cbChange(this)");
     });
 
     $addVidButton.on("click", function(e) {

@@ -63,7 +63,7 @@ class Figure
      * @Assert\NotBlank(message="You must add a name", groups={"new"})
      * @Assert\Length(
      *     min=3,
-     *     max=50,
+     *     max=30,
      *     minMessage="The name should contain at least {{ limit }} characters",
      *     maxMessage="The name should not contain more than {{ limit }} characters",
      *     allowEmptyString=false,
