@@ -33,3 +33,11 @@ services:
     App\Manager\ImageManager:
         arguments:
             $targetDirectory: '%uploaded%'
+
+    twig.extension.gravatar:
+        class: \TwigGravatar
+        arguments:
+            $default: 'retro'
+            $useHttps: true
+        tags:
+            - { name: twig.extension }
