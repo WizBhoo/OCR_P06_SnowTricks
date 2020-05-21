@@ -36,7 +36,7 @@ app_reset_password:
 app_figure_show:
     path: /tricks/{slug}
     controller: App\Controller\FigureController::show
-    methods: GET
+    methods: GET|POST
 
 app_figure_create:
     path: /trick/new

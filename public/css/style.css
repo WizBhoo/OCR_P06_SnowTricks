@@ -421,17 +421,21 @@ Site Home CSS rules - Modal Tricks Area - Comment part
   border-top: 1px solid #dee2e6;
 }
 
-.msg_card_body{
+#comment_form_content {
+  margin-top: 30px;
+}
+
+.msg_card_body {
   overflow-y: auto;
 }
 
-.img_cont{
+.img_cont {
   position: relative;
   height: 70px;
   width: 70px;
 }
 
-.img_cont_msg img {
+.user_img_msg {
   height: 40px;
   width: 40px;
 }
@@ -446,10 +450,14 @@ Site Home CSS rules - Modal Tricks Area - Comment part
   position: relative;
 }
 
+.msg_author {
+  margin-left: 30px;
+  color: #000;
+  font-size: 14px;
+}
+
 .msg_time {
-  position: absolute;
-  left: 190px;
-  bottom: -20px;
+  margin-left: 30px;
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
 }

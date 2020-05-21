@@ -7,7 +7,9 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Form\CommentFormType;
 use App\Form\FigureFormType;
+use App\Manager\CommentManager;
 use App\Manager\FigureManager;
 use App\Manager\UploadManager;
 use Doctrine\ORM\OptimisticLockException;
@@ -24,17 +26,47 @@ use Symfony\Component\HttpFoundation\Response;
 class FigureController extends AbstractController
 {
     /**
-     * Show a figure
+     * Show a figure with associated comments
+     * Allow to add comments if user is logged in
      *
-     * @param Figure $figure
+     * @param Request        $request
+     * @param Figure         $figure
+     * @param CommentManager $commentManager
      *
      * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    public function show(Figure $figure): Response
+    public function show(Request $request, Figure $figure, CommentManager $commentManager): Response
     {
+        $form = $this->createForm(CommentFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $commentManager->createComment(
+                    $form->getData(),
+                    $figure
+                );
+
+                $this->addFlash(
+                    'com-success',
+                    'Comment successfully added !'
+                );
+
+                return new JsonResponse($this->generateUrl('app_figure_show', ['slug' => $figure->getSlug()]));
+            }
+
+            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
+        }
+
         return $this->render(
             'figure/_show.html.twig',
-            ['figure' => $figure,]
+            [
+                'figure' => $figure,
+                'commentForm' => $form->createView(),
+            ]
         );
     }
 
@@ -54,7 +86,6 @@ class FigureController extends AbstractController
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
@@ -104,16 +135,7 @@ class FigureController extends AbstractController
         $originalImages = $figureManager->getOriginalImages($figure);
         $originalVideos = $figureManager->getOriginalVideos($figure);
 
-        $form = $this->createForm(
-            FigureFormType::class,
-            $figure,
-            [
-                'action' => $this->generateUrl(
-                    'app_figure_update',
-                    ['slug' => $slug]
-                )
-            ]
-        );
+        $form = $this->createForm(FigureFormType::class, $figure);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {

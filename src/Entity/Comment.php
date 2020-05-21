@@ -8,6 +8,7 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entity Class Comment
@@ -45,6 +46,15 @@ class Comment
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Your message can't be empty")
+     * @Assert\Length(
+     *     min=10,
+     *     max=255,
+     *     minMessage="Your message should contain at least {{ limit }} characters",
+     *     maxMessage="Your message should not contain more than {{ limit }} characters",
+     *     allowEmptyString=false,
+     *     groups={"new"}
+     * )
      */
     private $content;
 

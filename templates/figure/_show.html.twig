@@ -87,14 +87,26 @@
         </div>
     </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="container comment-form">
+        <div class="comment-form">
+            <div class="row justify-content-center mt-4">
+                {% for messages in app.flashes(['com-success']) %}
+                    {% for message in messages %}
+                        <div class="flash-notice">
+                            {{ message|trans(messages, 'messages') }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
             <div class="row comment justify-content-center">
-                <button class="btn btn-light ml-4">{{ button_label|default('Commenter') }}</button>
+                {{ form_start(commentForm, {'attr': {'action': '/tricks/' ~ figure.slug, 'id': 'com-form', 'class': 'col-lg-6 text-center'}}) }}
+                    {{ form_widget(commentForm.content) }}
+                    <button class="btn btn-light">{{ button_label|default('Commenter') }}</button>
+                {{ form_end(commentForm) }}
             </div>
         </div>
     {% endif %}
     <div class="container container-comment pt-2">
-        {% for comment in figure.comments %}
+        {% for comment in figure.comments|reverse %}
             <div class="row comment justify-content-center d-none">
                 <div class="card-body msg_card_body col-md-6 pb-0">
                     <div class="d-flex justify-content-start mb-4">
@@ -104,20 +116,24 @@
                                  alt="user-avatar"
                             >
                         </div>
-                        <div class="msg_container">
-                            {{ comment.content }}
-                            <span class="msg_time">
-                                Par : {{ comment.snowboarder.firstName }} {{ comment.snowboarder.LastName }} |
+                        <div class="flex-column">
+                            <div class="msg_author">
+                                Par : {{ comment.snowboarder.firstName }} {{ comment.snowboarder.LastName }}
+                            </div>
+                            <div class="msg_container">
+                                {{ comment.content }}
+                            </div>
+                            <div class="msg_time">
                                 Le : {{ comment.createdAt|date('d-m-Y à H:i') }}
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-2">
+    <div class="row">
+        <div class="col-lg-12 text-center">
             <button type="button" id="load-comment" class="btn btn-light">Afficher Plus</button>
         </div>
     </div>

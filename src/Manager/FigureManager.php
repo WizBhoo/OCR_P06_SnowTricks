@@ -7,7 +7,6 @@
 namespace App\Manager;
 
 use App\Entity\Figure;
-use App\Entity\Image;
 use App\Repository\FigureRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,7 +48,7 @@ class FigureManager
     private $snowboarderManager;
 
     /**
-     * A Security service instance
+     * A Security service Instance
      *
      * @var Security
      */
