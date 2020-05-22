@@ -55,6 +55,13 @@ class FigureManager
     private $security;
 
     /**
+     * Directory to save uploaded files
+     *
+     * @var string
+     */
+    private $targetDirectory;
+
+    /**
      * FigureManager constructor.
      *
      * @param FigureRepository   $figureRepository
@@ -62,14 +69,16 @@ class FigureManager
      * @param VideoManager       $videoManager
      * @param SnowboarderManager $snowboarderManager
      * @param Security           $security
+     * @param string             $targetDirectory
      */
-    public function __construct(FigureRepository $figureRepository, ImageManager $imageManager, VideoManager $videoManager, SnowboarderManager $snowboarderManager, Security $security)
+    public function __construct(FigureRepository $figureRepository, ImageManager $imageManager, VideoManager $videoManager, SnowboarderManager $snowboarderManager, Security $security, string $targetDirectory)
     {
         $this->figureRepository = $figureRepository;
         $this->imageManager = $imageManager;
         $this->videoManager = $videoManager;
         $this->snowboarderManager = $snowboarderManager;
         $this->security = $security;
+        $this->targetDirectory = $targetDirectory;
     }
 
     /**
@@ -159,6 +168,13 @@ class FigureManager
      */
     public function deleteFigure(Figure $figure): void
     {
+        $images = $figure->getImages();
+        foreach ($images as $image) {
+            $pathFile = $this->targetDirectory.'/'.$image->getPath();
+            if (file_exists($pathFile)) {
+                unlink($pathFile);
+            }
+        }
         $this->figureRepository->delete($figure);
     }
 
