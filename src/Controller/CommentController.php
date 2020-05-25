@@ -35,7 +35,7 @@ class CommentController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function addComment(Request $request, Figure $figure, CommentManager $commentManager, ErrorManager $errorManager): JsonResponse
+    public function add(Request $request, Figure $figure, CommentManager $commentManager, ErrorManager $errorManager): JsonResponse
     {
         $form = $this->createForm(CommentFormType::class);
         $form->handleRequest($request);
