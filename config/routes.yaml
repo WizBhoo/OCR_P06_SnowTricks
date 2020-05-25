@@ -36,7 +36,7 @@ app_reset_password:
 app_figure_show:
     path: /tricks/{slug}
     controller: App\Controller\FigureController::show
-    methods: GET|POST
+    methods: GET
 
 app_figure_create:
     path: /trick/new
@@ -51,3 +51,8 @@ app_figure_update:
 app_figure_delete:
     path: /trick/delete/{slug}
     controller: App\Controller\FigureController::delete
+
+app_figure_comment:
+    path: /tricks/{slug}
+    controller: App\Controller\CommentController::addComment
+    methods: POST

@@ -9,13 +9,12 @@ namespace App\Controller;
 use App\Entity\Figure;
 use App\Form\CommentFormType;
 use App\Form\FigureFormType;
-use App\Manager\CommentManager;
+use App\Manager\ErrorManager;
 use App\Manager\FigureManager;
 use App\Manager\UploadManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,39 +26,16 @@ class FigureController extends AbstractController
 {
     /**
      * Show a figure with associated comments
-     * Allow to add comments if user is logged in
      *
-     * @param Request        $request
-     * @param Figure         $figure
-     * @param CommentManager $commentManager
+     * @param Request $request
+     * @param Figure  $figure
      *
      * @return Response
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
-    public function show(Request $request, Figure $figure, CommentManager $commentManager): Response
+    public function show(Request $request, Figure $figure): Response
     {
         $form = $this->createForm(CommentFormType::class);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $commentManager->createComment(
-                    $form->getData(),
-                    $figure
-                );
-
-                $this->addFlash(
-                    'com-success',
-                    'Comment successfully added !'
-                );
-
-                return new JsonResponse($this->generateUrl('app_figure_show', ['slug' => $figure->getSlug()]));
-            }
-
-            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
-        }
 
         return $this->render(
             'figure/_show.html.twig',
@@ -76,13 +52,14 @@ class FigureController extends AbstractController
      * @param Request       $request
      * @param FigureManager $figureManager
      * @param UploadManager $uploadManager
+     * @param ErrorManager  $errorManager
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function create(Request $request, FigureManager $figureManager, UploadManager $uploadManager): Response
+    public function create(Request $request, FigureManager $figureManager, UploadManager $uploadManager, ErrorManager $errorManager): Response
     {
         $form = $this->createForm(FigureFormType::class);
         $form->handleRequest($request);
@@ -102,7 +79,7 @@ class FigureController extends AbstractController
                 return new JsonResponse($this->generateUrl('index'));
             }
 
-            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($errorManager->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render(
@@ -118,13 +95,14 @@ class FigureController extends AbstractController
      * @param string        $slug
      * @param FigureManager $figureManager
      * @param UploadManager $uploadManager
+     * @param ErrorManager  $errorManager
      *
      * @return Response
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function update(Request $request, string $slug, FigureManager $figureManager, UploadManager $uploadManager): Response
+    public function update(Request $request, string $slug, FigureManager $figureManager, UploadManager $uploadManager, ErrorManager $errorManager): Response
     {
         if (null === $figure = $figureManager->findFigureBy($slug)) {
             $this->addFlash('error', 'No figure found for slug '.$slug);
@@ -151,7 +129,7 @@ class FigureController extends AbstractController
                 return new JsonResponse($this->generateUrl('index'));
             }
 
-            return new JsonResponse($this->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($errorManager->getErrorMessages($form), Response::HTTP_BAD_REQUEST);
         }
 
         return $this->render(
@@ -187,33 +165,5 @@ class FigureController extends AbstractController
         );
 
         return $this->redirectToRoute('index');
-    }
-
-    /**
-     * Retrieve error messages if exist after form submission
-     *
-     * @param FormInterface $form
-     *
-     * @return array
-     */
-    private function getErrorMessages(FormInterface $form): array
-    {
-        $errors = array();
-
-        foreach ($form->getErrors() as $key => $error) {
-            if ($form->isRoot()) {
-                $errors['#'][] = $error->getMessage();
-            } else {
-                $errors[] = $error->getMessage();
-            }
-        }
-
-        foreach ($form->all() as $child) {
-            if (!$child->isValid()) {
-                $errors[$child->getName()] = $this->getErrorMessages($child);
-            }
-        }
-
-        return $errors;
     }
 }
