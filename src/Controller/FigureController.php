@@ -66,6 +66,7 @@ class FigureController extends AbstractController
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                $this->get("security.csrf.token_manager")->refreshToken("form_figure");
                 $uploadManager->uploadImage($request, $form);
                 $figureManager->createFigure(
                     $form->getData()
@@ -118,6 +119,7 @@ class FigureController extends AbstractController
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                $this->get("security.csrf.token_manager")->refreshToken("form_figure");
                 $uploadManager->uploadImage($request, $form);
                 $figureManager->updateFigure($figure, $originalImages, $originalVideos);
 

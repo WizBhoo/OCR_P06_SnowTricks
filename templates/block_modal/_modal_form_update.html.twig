@@ -8,7 +8,10 @@
             <div class="images-form" data-prototype="{{ form_widget(figureForm.images.vars.prototype)|e('html_attr') }}">
                 {% for image in figureForm.images %}
                     <div class="img-form">
-                        <span>{{ form_widget(image) }}</span>
+                        <span>
+                            {{ form_widget(image) }}
+                            <span class="img-form-path" style="display: none">{{ image.vars.value.path }}</span>
+                        </span>
                     </div>
                 {% endfor %}
             </div>
@@ -28,5 +31,6 @@
 {{ form_end(figureForm) }}
 
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('js/dynamic_form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dynamic-form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/custom-label.js') }}"></script>
 {% endblock %}
