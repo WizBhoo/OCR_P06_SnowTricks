@@ -399,7 +399,9 @@ Site Home CSS rules - Modal Tricks Area
 }
 
 .fig-title h3 {
-  font-weight: 300;
+  font-weight: 600;
+  font-size: 60px;
+  color: #fff;
 }
 
 .img,
@@ -411,6 +413,55 @@ Site Home CSS rules - Modal Tricks Area
 
 fieldset {
   display: none;
+}
+
+/* ----------------------------------------------------
+Site Home CSS rules - Modal Tricks Area - Comment part
+----------------------------------------------------- */
+.container-comment,
+.comment-form {
+  border-top: 1px solid #dee2e6;
+}
+
+#comment_form_content {
+  margin-top: 30px;
+}
+
+.msg_card_body {
+  overflow-y: auto;
+}
+
+.img_cont {
+  position: relative;
+  height: 70px;
+  width: 70px;
+}
+
+.user_img_msg {
+  height: 40px;
+  width: 40px;
+}
+
+.msg_container {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  border-radius: 25px;
+  background-color: #e3f2fd;
+  padding: 10px;
+  position: relative;
+}
+
+.msg_author {
+  margin-left: 30px;
+  color: #000;
+  font-size: 14px;
+}
+
+.msg_time {
+  margin-left: 30px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
 }
 
 /* ----------------------------------------------------

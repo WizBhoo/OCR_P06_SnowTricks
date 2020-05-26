@@ -18,6 +18,19 @@ function printFormErrors(errors) {
     }
 }
 
+function printFormCommentsErrors(errors) {
+    for (let error in errors) {
+        $("#comment_form_" + error).addClass("is-invalid");
+        for (let index in errors[error]) {
+            $("#comment_form_" + error).after(
+                "<div class='invalid-feedback'>\n" +
+                errors[error][index] +
+                "</div>"
+            );
+        }
+    }
+}
+
 function printFormVideosErrors(errors) {
     for (let error in errors) {
         if ("videos" === error) {
@@ -55,8 +68,8 @@ function printFormImagesErrors(errors) {
 $(document).ready(function() {
     $("#figureModal").on("change", "[id^=figure_form_images]", function(){
         //get the file name
-        let fileName = $(this).val();
-        alert(fileName);
+        let tabFileName = $(this).val().split("\\");
+        let fileName = tabFileName[tabFileName.length-1];
         //replace the "Choose a file" label
         $(this).next(".custom-file-label").html(fileName);
     })
@@ -75,7 +88,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#figureModal").on("submit", "#fig-form",function(e) {
+    $("#figureModal").on("submit", "#fig-form", function(e) {
         e.preventDefault();
         let form = $(this);
         let url = form.attr("action");
@@ -99,6 +112,34 @@ $(document).ready(function() {
                 printFormErrors(errors);
                 printFormVideosErrors(errors);
                 printFormImagesErrors(errors);
+            }
+        });
+    });
+
+    $("#figureModal").on("submit", "#com-form", function(e) {
+        e.preventDefault();
+        let form = $(this);
+        let url = form.attr("action");
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "JSON",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $(".is-invalid").removeClass("is-invalid");
+                $(".invalid-feedback").remove();
+            },
+            success: function(urlFromController) {
+                $(".modal-content").load(urlFromController, function() {
+                    $("#figureModal").modal("show");
+                });
+            },
+            error: function(xhr) {
+                let errors = JSON.parse(xhr.responseText);
+                printFormCommentsErrors(errors);
             }
         });
     });

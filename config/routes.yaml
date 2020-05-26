@@ -44,10 +44,15 @@ app_figure_create:
     methods: GET|POST
 
 app_figure_update:
-    path: /trick/update/{slug}
+    path: /trick/{slug}
     controller: App\Controller\FigureController::update
     methods: GET|POST
 
 app_figure_delete:
-    path: /trick/delete/{slug}
+    path: /trick/{slug}
     controller: App\Controller\FigureController::delete
+
+app_figure_comment:
+    path: /tricks/{slug}/comment
+    controller: App\Controller\CommentController::add
+    methods: POST
