@@ -399,7 +399,9 @@ Site Home CSS rules - Modal Tricks Area
 }
 
 .fig-title h3 {
-  font-weight: 300;
+  font-weight: 600;
+  font-size: 60px;
+  color: #fff;
 }
 
 .img,

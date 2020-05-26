@@ -34,6 +34,10 @@ services:
         arguments:
             $targetDirectory: '%uploaded%'
 
+    App\Manager\FigureManager:
+        arguments:
+            $targetDirectory: '%uploaded%'
+
     twig.extension.gravatar:
         class: \TwigGravatar
         arguments:
