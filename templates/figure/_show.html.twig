@@ -16,7 +16,7 @@
             <div class="fig-link">
                 <a id="edit"
                    href="{{ path('app_figure_update', {'slug': figure.slug}) }}"
-                   class="update-modal"
+                   class="show-update-modal"
                    data-toggle="modal"
                    data-target="#figureModal">
                     <i class="fas fa-pencil-alt"></i>
@@ -98,7 +98,7 @@
                 {% endfor %}
             </div>
             <div class="row comment justify-content-center">
-                {{ form_start(commentForm, {'attr': {'action': '/tricks/' ~ figure.slug, 'id': 'com-form', 'class': 'col-lg-6 text-center'}}) }}
+                {{ form_start(commentForm, {'attr': {'action': '/tricks/' ~ figure.slug ~ '/comment', 'id': 'com-form', 'class': 'col-lg-6 text-center'}}) }}
                     {{ form_widget(commentForm.content) }}
                     <button class="btn btn-light">{{ button_label|default('Commenter') }}</button>
                 {{ form_end(commentForm) }}
@@ -145,4 +145,5 @@
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('js/load-media.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/load-more-comment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal-from-modal.js') }}"></script>
 {% endblock %}

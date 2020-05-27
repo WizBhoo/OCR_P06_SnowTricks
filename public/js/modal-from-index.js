@@ -55,7 +55,7 @@ function printFormImagesErrors(errors) {
                 $("#figure_form_"+error+"_"+index+"_file").addClass("is-invalid");
                 for (let messageIndex in errors[error][index]["file"]) {
                     $("#figure_form_" + error + "_" + index + "_file").after(
-                        '<div class="invalid-feedback">\n' +
+                        "<div class='invalid-feedback'>\n" +
                         errors[error][index]["file"][messageIndex] +
                         "</div>"
                     );
@@ -72,7 +72,7 @@ $(document).ready(function() {
         let fileName = tabFileName[tabFileName.length-1];
         //replace the "Choose a file" label
         $(this).next(".custom-file-label").html(fileName);
-    })
+    });
 
     $(".show-modal, .new-modal, .update-modal").on("click", function(){
         $.ajax({
