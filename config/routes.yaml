@@ -1,3 +1,58 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\HomeController::index
+    methods: GET
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: GET|POST
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+    methods: GET
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+    methods: GET|POST
+
+app_account_activation:
+    path: /account-activation
+    controller: App\Controller\AccountController::activation
+    methods: GET
+
+app_forgotten_password:
+    path: /forgotten-password
+    controller: App\Controller\ForgottenPasswordController::forgottenPassword
+    methods: GET|POST
+
+app_reset_password:
+    path: /reset-password
+    controller: App\Controller\ResetPasswordController::resetPassword
+    methods: GET|POST
+
+app_figure_show:
+    path: /tricks/{slug}
+    controller: App\Controller\FigureController::show
+    methods: GET
+
+app_figure_create:
+    path: /trick/new
+    controller: App\Controller\FigureController::create
+    methods: GET|POST
+
+app_figure_update:
+    path: /trick/{slug}
+    controller: App\Controller\FigureController::update
+    methods: GET|POST
+
+app_figure_delete:
+    path: /trick/{slug}
+    controller: App\Controller\FigureController::delete
+
+app_figure_comment:
+    path: /tricks/{slug}/comment
+    controller: App\Controller\CommentController::add
+    methods: POST

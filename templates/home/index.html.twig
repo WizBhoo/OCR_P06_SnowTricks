@@ -1,0 +1,96 @@
+{% extends 'layout.html.twig' %}
+
+{% block description %}SnowTricks - community Web-Site with many tricks to learn{% endblock %}
+
+{% block title %}SnowTricks - APi{% endblock %}
+
+{% block content %}
+    <section class="main-container">
+        {% include('block_modal/_modal_template.html.twig') %}
+        <article class="site-intro">
+            <div class="container">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="main-title">SnowTricks</h1>
+                            <p class="main-subtitle">Born to Ride !</p>
+                        </div>
+                    </div>
+                </div>
+                <a id="scroll-down" href="#scroll-anchor"><span></span>Scroll</a>
+            </div>
+        </article>
+        <div id="scroll-anchor" class="container-fluid site-gallery">
+            <div class="row">
+                <div class="col">
+                    <h2>Welcome Snowboarder !</h2>
+                    <p>
+                        La Gallerie des Tricks est un espace communautaire pour découvrir, apprendre, partager et
+                        discuter autour du Snowboard Freestyle.
+                    </p>
+                </div>
+            </div>
+            <div class="row card-columns">
+                <div class="col-lg-12">
+                    {% for figure in figures %}
+                        <div class="card d-none">
+                            <div class="img-top container-fluid">
+                            {% if figure.images is empty %}
+                                <img src="{{ asset('img/uploaded/default.jpg')}}" class="card-img-top d-block" alt="Trick Image">
+                            {% else %}
+                                {% for image in figure.images %}
+                                    {% if image.primary == true %}
+                                        <img src="{{ asset('img/uploaded/') }}{{ image.path }}" class="card-img-top d-block" alt="Trick Image">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            </div>
+                            <div class="row card-body">
+                                <div class="col-6">
+                                    <h4 class="card-title">
+                                        <a href="{{ path('app_figure_show', {'slug': figure.slug}) }}"
+                                           class="show-modal"
+                                           data-toggle="modal"
+                                           data-target="#figureModal">
+                                            {{ figure.name }}
+                                        </a>
+                                    </h4>
+                                </div>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="col-6 text-right">
+                                    <a id="edit"
+                                       href="{{ path('app_figure_update', {'slug': figure.slug}) }}"
+                                       class="card-link update-modal"
+                                       data-toggle="modal"
+                                       data-target="#figureModal">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    {{ include('figure/_delete.html.twig') }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-2">
+                    <button type="button" id="load-more" class="btn btn-light">Afficher Plus</button>
+                </div>
+            </div>
+            <div class="row justify-content-center scroll-up d-none">
+                <div class="col-lg-12">
+                    <a id="scroll-up" href="#scroll-anchor"><span></span>Scroll</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('js/scroll.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/load-more.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/checkbox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modal-from-index.js') }}"></script>
+{% endblock %}
